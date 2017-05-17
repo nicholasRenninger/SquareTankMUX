@@ -9,8 +9,8 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
 # setup all of the pins
-for pin in OUT_PINS:
-	GPIO.setup(OUT_PINS[pin], GPIO.OUT)
+for GPIO_Pin in OUT_PINS:
+	GPIO.setup(GPIO_Pin, GPIO.OUT)
 
 ### Blink LEDs
 while(1):
