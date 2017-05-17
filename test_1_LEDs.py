@@ -31,10 +31,11 @@ while(1):
 	
 	# address will be a binary string, which will be sent to the GPIO
 	# pins succesively
-	LEDAddresses = '%0*s' % (numAddressBits, selectedLED);
+	LEDAddress = '%0*s' % (numAddressBits, selectedLED);
+	print LEDAddress
 	
 	# write address to the GPIO pins
-	for idx, currentPin in enumerate(LEDAddresses):
+	for idx, currentPin in enumerate(LEDAddress):
 	    
 	    print idx, currentPin
 	    #~ # Setup the MUX
