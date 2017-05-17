@@ -25,13 +25,13 @@ while(1):
 		pass;
 		
 	# don't take the 0b portion of 0b101...
-	selectedLED = bin(int(input("Enter the LED to Light: ")))[2:];
+	selectedLED = int(input("Enter the LED to Light: "));
 	print selectedLED
 	print numAddressBits
 	
 	# address will be a binary string, which will be sent to the GPIO
 	# pins succesively
-	LEDAddress = '%0*s' % (numAddressBits, selectedLED);
+	LEDAddress = '%0*d' % (numAddressBits, int(bin(selectedLED)[2:]));
 	print LEDAddress
 	
 	# write address to the GPIO pins
