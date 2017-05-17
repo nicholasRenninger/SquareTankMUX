@@ -26,23 +26,23 @@ while(1):
 		
 	# don't take the 0b portion of 0b101...
 	selectedLED = int(input("Enter the LED to Light: "));
-	print selectedLED
-	print numAddressBits
+	#~ print selectedLED
+	#~ print numAddressBits
 	
 	# address will be a binary string, which will be sent to the GPIO
 	# pins succesively
 	LEDAddress = '%0*d' % (numAddressBits, int(bin(selectedLED)[2:]));
-	print LEDAddress
+	#~ print LEDAddress
 	
 	# write address to the GPIO pins
 	for idx, currentPin in enumerate(LEDAddress):
 	    
-	    print idx, currentPin
-	    #~ # Setup the MUX
-	    #~ if currentPin == 1:
-			#~ GPIO.output(OUT_PINS[idx], true)
-		#~ else: # currentPin = 0
-			#~ GPIO.output(OUT_PINS[idx], false)
+	    #~ print idx, currentPin
+	    # Setup the MUX
+	    if currentPin == 1:
+			GPIO.output(OUT_PINS[idx], true)
+		else: # currentPin = 0
+			GPIO.output(OUT_PINS[idx], false)
 			
 	
 	print("LED on");
