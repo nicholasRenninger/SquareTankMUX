@@ -1,8 +1,10 @@
 import RPi.GPIO as GPIO
 import time
+import math
 
 # Define pins to use
 OUT_PINS = [4, 26];
+numAddressBits = math.ceil( math.log(len(OUT_PINS)) / math.log(2) );
 
 # Setup
 GPIO.setmode(GPIO.BCM)
@@ -21,17 +23,23 @@ while(1):
 	except NameError:
 		pass;
 		
-	selectedLED = int(input("Enter the LED to Light: "));
+	# don't take the 0b portion of 0b101...
+	selectedLED = bin(input("Enter the LED to Light: "))[2:];
 	
 	# address will be a binary string, which will be sent to the GPIO
 	# pins succesively
-	LEDAddresses = str(bin(selectedLED));
+	LEDAddresses = '%0*d' % (numAddressBits, selectedLED);
 	
 	# write address to the GPIO pins
-	for idx, currentPin in LEDAddresses:
+	for idx, currentPin in enumerate(LEDAddresses):
 	    
-	    # Setup the MUX
-		GPIO.output(OUT_PINS[idx], currentPin)
+	    print idx, currentPin
+	    #~ # Setup the MUX
+	    #~ if currentPin == 1:
+			#~ GPIO.output(OUT_PINS[idx], true)
+		#~ else: # currentPin = 0
+			#~ GPIO.output(OUT_PINS[idx], false)
+			
 	
 	print("LED on");
 
