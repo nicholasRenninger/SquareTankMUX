@@ -38,8 +38,8 @@ while(1):
 	for idx, currentPin in enumerate(LEDAddress):
 	    
 	    #~ print idx, currentPin
-	    # Setup the MUX
-	    if (currentPin == 1):
+		# Setup the MUX
+		if (currentPin == 1):
 			GPIO.output(OUT_PINS[idx], true)
 		else:
 			# currentPin = 0
