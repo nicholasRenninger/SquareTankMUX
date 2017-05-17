@@ -28,7 +28,7 @@ while(1):
 	
 	# address will be a binary string, which will be sent to the GPIO
 	# pins succesively
-	LEDAddresses = '%0*s' % (numAddressBits, selectedLED);
+	LEDAddresses = '%0*s' % (numAddressBits, int(selectedLED));
 	
 	# write address to the GPIO pins
 	for idx, currentPin in enumerate(LEDAddresses):
