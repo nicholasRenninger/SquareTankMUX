@@ -15,13 +15,13 @@ for pin in OUT_PINS:
 ### Blink LEDs
 while(1):
 
-    # Get user input
-    try:
-        input = raw_input;
-    except NameError:
-        pass;
-
-    selectedLED = input("Enter the LED to Light");
+	# Get user input
+	try:
+		input = raw_input;
+	except NameError:
+		pass;
+		
+	selectedLED = input("Enter the LED to Light");
 	
 	# address will be a binary string, which will be sent to the GPIO
 	# pins succesively
