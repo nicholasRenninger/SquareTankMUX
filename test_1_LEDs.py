@@ -41,7 +41,8 @@ while(1):
 	    # Setup the MUX
 	    if currentPin == 1:
 			GPIO.output(OUT_PINS[idx], true)
-		else: # currentPin = 0
+		else: 
+			# currentPin = 0
 			GPIO.output(OUT_PINS[idx], false)
 			
 	
