@@ -21,7 +21,7 @@ while(1):
 	except NameError:
 		pass;
 		
-	selectedLED = input("Enter the LED to Light: ");
+	selectedLED = int(input("Enter the LED to Light: "));
 	
 	# address will be a binary string, which will be sent to the GPIO
 	# pins succesively
