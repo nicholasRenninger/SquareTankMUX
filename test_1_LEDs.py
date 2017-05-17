@@ -28,7 +28,7 @@ while(1):
 	LEDAddresses = str(bin(selectedLED));
 	
 	# write address to the GPIO pins
-	for idx,urrentPin in LEDAddresses:
+	for idx, currentPin in LEDAddresses:
 	    
 	    # Setup the MUX
 		GPIO.output(OUT_PINS[idx], currentPin)
