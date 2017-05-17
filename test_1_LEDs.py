@@ -25,6 +25,8 @@ while(1):
 		
 	# don't take the 0b portion of 0b101...
 	selectedLED = bin(int(input("Enter the LED to Light: ")))[2:];
+	print selectedLED
+	print numAddressBits
 	
 	# address will be a binary string, which will be sent to the GPIO
 	# pins succesively
