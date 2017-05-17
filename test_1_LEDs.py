@@ -4,7 +4,7 @@ import math
 
 # Define pins to use
 OUT_PINS = [4, 26];
-numAddressBits = math.ceil( math.log(len(OUT_PINS)) / math.log(2) );
+numAddressBits = int(math.ceil( math.log(len(OUT_PINS)) / math.log(2) ));
 
 # Setup
 GPIO.setmode(GPIO.BCM)
@@ -30,7 +30,7 @@ while(1):
 	
 	# address will be a binary string, which will be sent to the GPIO
 	# pins succesively
-	LEDAddresses = '%0*s' % (numAddressBits, int(selectedLED));
+	LEDAddresses = '%0*d' % (numAddressBits, selectedLED);
 	
 	# write address to the GPIO pins
 	for idx, currentPin in enumerate(LEDAddresses):
