@@ -2,17 +2,17 @@ import Rpi.GPIO as GPIO
 import time
 
 # Define pins to use
-OUT_PIN1 = 4;
-OUT_PIN2 = 26;
+OUT_PINS = [4, 26];
 
 # Setup
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
-GPIO.setup(OUT_PIN1, GPIO.OUT)
-GPIO.setup(OUT_PIN2, GPIO.OUT)
+
+# setup all of the pins
+for pin in OUT_PINS:
+	GPIO.setup(OUT_PINS[pin], GPIO.OUT)
 
 ### Blink LEDs
-
 while(1):
 
     # Get user input
@@ -21,8 +21,17 @@ while(1):
     except NameError:
         pass;
 
-    selectedPort = input("Enter the LED to Light");
-
-
-    # Setup the MUX
+    selectedLED = input("Enter the LED to Light");
+	
+	# address will be a binary string, which will be sent to the GPIO
+	# pins succesively
+	LEDAddresses = str(bin(selectedLED));
+	
+	# write address to the GPIO pins
+	for idx,urrentPin in LEDAddresses:
+	    
+	    # Setup the MUX
+		GPIO.output(OUT_PINS[idx], currentPin)
+	
+	print("LED on");
 
