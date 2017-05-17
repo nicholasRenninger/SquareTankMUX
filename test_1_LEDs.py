@@ -40,10 +40,10 @@ while(1):
 	    #~ print idx, currentPin
 		# Setup the MUX
 		if (currentPin == 1):
-			GPIO.output(OUT_PINS[idx], true)
+			GPIO.output(OUT_PINS[idx], True)
 		else:
 			# currentPin = 0
-			GPIO.output(OUT_PINS[idx], false)
+			GPIO.output(OUT_PINS[idx], False)
 			
 	
 	print("LED on");
