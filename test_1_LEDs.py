@@ -4,7 +4,8 @@ import math
 
 # Define pins to use
 OUT_PINS = [4, 26];
-numAddressBits = int(math.ceil( math.log(len(OUT_PINS)) / math.log(2) ));
+MAX_NUM_ADDRESSES = 4; # CD4052
+numAddressBits = int(math.ceil( math.log(MAX_NUM_ADDRESSES) / math.log(2) ));
 
 # Setup
 GPIO.setmode(GPIO.BCM)
