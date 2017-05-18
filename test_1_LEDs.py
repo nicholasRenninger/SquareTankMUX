@@ -3,7 +3,9 @@ import time
 import math
 
 # Define pins to use
-OUT_PINS = [26, 4];
+pinA = 4;
+pinB = 26;
+OUT_PINS = [pinB, pinA];
 MAX_NUM_ADDRESSES = 4; # CD4052
 numAddressBits = int(math.ceil( math.log(MAX_NUM_ADDRESSES) / math.log(2) ));
 
