@@ -36,7 +36,7 @@ while(1):
 	
 	# write address to the GPIO pins
 	for idx, currentPin in enumerate(LEDAddress):
-	    print "current pin = ", currentPin
+		print "current pin = ", currentPin
 	    #~ print idx, currentPin
 		# Setup the MUX
 		if (currentPin == 1):
