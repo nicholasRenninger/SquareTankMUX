@@ -41,9 +41,10 @@ while(1):
 		# Setup the MUX
 		if (currentPin == 1):
 			GPIO.output(OUT_PINS[idx], GPIO.HIGH)
-			print "isTrue"
+			print OUT_PINS[idx], "is high"
 		else:
 			# currentPin = 0
+			print OUT_PINS[idx], "is low"
 			GPIO.output(OUT_PINS[idx], GPIO.LOW)
 			
 	
