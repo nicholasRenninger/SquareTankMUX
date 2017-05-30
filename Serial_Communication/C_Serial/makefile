@@ -1,7 +1,7 @@
 OBJS = serialComm.o
-CC = g++
+CC = i586-mingw32msvc-g++ 
 DEBUG = -g
-CFLAGS = -Wall -c $(DEBUG)
+CFLAGS = -Wall -c -mwindows $(DEBUG)
 LFLAGS = -Wall $(DEBUG)
 
 pressureRead : $(OBJS)
