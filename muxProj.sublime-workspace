@@ -1,0 +1,301 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "test_1_LEDs.py",
+			"settings":
+			{
+				"buffer_size": 1168,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "#include <stdlib.h>\n#include <windows.h>\n#include <stdio.h>\n#include <conio.h>\n#include <iostream>\n\n#define READ_BUFFER_SIZE 100\n#define WRITE_BUFFER_SIZE 100\n\n\nint main(int argc, char *argv[])\n{\n   \n   DCB dcb={0};\n   HANDLE hCom;\n   BOOL fSuccess;\n   char comPortNumber[1];\n   std::cout << \"Name of COM port number: \";\n   scanf(\"%s\", comPortNumber);\n   char pcCommPort[256];\n   snprintf(pcCommPort, sizeof(pcCommPort), \"%s%s\", \"COM\", comPortNumber);\n   //~ char *pcCommPort = \"COM2\";\n   char readBuff[READ_BUFFER_SIZE] = {0};\n   char otherBuff[WRITE_BUFFER_SIZE] = {\"@254PR1?;FF\"};\n   DWORD dwBytesRead=0;\n   DWORD dwBytesWrite=0;  \n   \n/***************************************CommTimeouts******************************************/\nCOMMTIMEOUTS timeouts={0};\ntimeouts.ReadIntervalTimeout=50;\ntimeouts.ReadTotalTimeoutConstant=50;\ntimeouts.ReadTotalTimeoutMultiplier=10;\ntimeouts.WriteTotalTimeoutConstant=50;\ntimeouts.WriteTotalTimeoutMultiplier=10;\n\n\n\n\n/*******************************************Handle*******************************************/\n   hCom = CreateFile( pcCommPort,\n                    GENERIC_READ | GENERIC_WRITE,\n                    FILE_SHARE_READ,    // must be opened with exclusive-access\n                    NULL, // no security attributes\n                    OPEN_EXISTING, // must use OPEN_EXISTING\n                    FILE_ATTRIBUTE_NORMAL,    // not overlapped I/O\n                    NULL  // hTemplate must be NULL for comm devices\n                    );\n\n/***************************************SET*UP*COM*PORT**************************************/\n   if (hCom == INVALID_HANDLE_VALUE)\n   {\n       printf (\"CreateFile failed with error %Iu.\\n\", GetLastError()); // %Iu is for long unsigned int\n       return (1);\n   }\n\n   if(!SetCommTimeouts(hCom, &timeouts))\n    {\n        /*Well, then an error occurred*/\n   }\n\n   fSuccess = GetCommState(hCom, &dcb);\n\n   if (!fSuccess)\n   {\n     /*More Error Handling*/\n      printf (\"GetCommState failed with error %Iu.\\n\", GetLastError());\n      return (2);\n   }\n\n\n   dcb.BaudRate = 9600;     // set the baud rate\n   dcb.ByteSize = 8;             // data size, xmit, and rcv\n   dcb.Parity = NOPARITY;        // no parity bit\n   dcb.StopBits = ONESTOPBIT;    // one stop bit\n   fSuccess = SetCommState(hCom, &dcb);\n\n   if (!fSuccess)\n   {\n      printf (\"SetCommState failed. Error: %Iu.\\n\", GetLastError());\n      return (3);\n   }\n\n   printf (\"Serial port %s successfully configured.\\n\", pcCommPort);\n //  return (0);\n\n/*************************************Reading************************************************/\n\nif(ReadFile(hCom, readBuff, READ_BUFFER_SIZE, &dwBytesRead, NULL)){\n   \n   for(unsigned int j = 0; j < sizeof(readBuff); j++){\n     printf(\"%c\", readBuff[j]);\n   }\n   puts(\"\\nRead from the Device\\n\"); // Print a new line after printing all the string.\n} else {\n\n\tprintf(\"\\nerror reading from device\\n\");\n}\n\n\nif(WriteFile(hCom, otherBuff, WRITE_BUFFER_SIZE, &dwBytesWrite, NULL)){\n\nfor(unsigned int i=0;i<sizeof(otherBuff);i++){\n    printf(\"%c\", otherBuff[i]);\n}\nprintf(\"\\nThe size of the Write Buffer is: %d\\n\", sizeof(otherBuff) - 1);\nprintf(\"Wrote to the device\\n\\n\");\n}\n\nif(ReadFile(hCom, readBuff, READ_BUFFER_SIZE, &dwBytesRead, NULL)){\n \n   for(unsigned int j = 0; j < sizeof(readBuff); j++){\n     printf(\"%c\", readBuff[j]);\n   }\n   puts(\"\\nRead from the Device\\n\"); // Print a new line after printing all the string.\n}\n\n\n/********************************************************************************************/\nCloseHandle(hCom);\nreturn(0);\n\n}\n\n",
+			"file": "/D/Google Drive/LASP/ST Automation/Pressure_Gauge _Labjack/Serial_Communication/serialComm.c",
+			"file_size": 3668,
+			"file_write_time": 131399468929794173,
+			"settings":
+			{
+				"buffer_size": 3545,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "Packages/C++/C++ Single File.sublime-build",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					""
+				],
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					"Run"
+				]
+			],
+			[
+				"Packages/C++/C++ Single File.sublime-build",
+				"Run"
+			]
+		],
+		[
+			[
+				[
+					"Packages/Python/Python.sublime-build",
+					""
+				],
+				[
+					"Packages/Python/Python.sublime-build",
+					"Syntax Check"
+				]
+			],
+			[
+				"Packages/Python/Python.sublime-build",
+				"Syntax Check"
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 104.0,
+		"last_filter": "install ",
+		"selected_items":
+		[
+			[
+				"install ",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 400.0
+	},
+	"console":
+	{
+		"height": 237.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = 'df21e130d211cfc94d9b0905775a7c0f' + '1e3d39e33b79698005270310898eea76'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/C/Users/nrenh_000/AppData/Roaming/Sublime Text 3/Packages/User/c++build.sublime-build",
+		"/D/Google Drive/LASP/ST Automation/Pressure_Gauge _Labjack/Serial_Communication/serialComm.cpp",
+		"/C/Users/nrenh_000/Desktop/test.py",
+		"/D/Google Drive/LASP/ST Automation/Raspberry Pi/MUXing/SquareTankMUX/muxProj.sublime-project"
+	],
+	"find":
+	{
+		"height": 0.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "test_1_LEDs.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1168,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								216,
+								216
+							]
+						],
+						"settings":
+						{
+							"auto_complete_triggers":
+							[
+								{
+									"characters": ".",
+									"selector": "source.python - string - comment - constant.numeric"
+								},
+								{
+									"characters": ".",
+									"selector": "source.python - string - constant.numeric"
+								}
+							],
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/D/Google Drive/LASP/ST Automation/Pressure_Gauge _Labjack/Serial_Communication/serialComm.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3545,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2038,
+								2038
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 210.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 240.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "muxProj.sublime-project",
+	"replace":
+	{
+		"height": 0.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
