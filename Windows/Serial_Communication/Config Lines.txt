@@ -1,0 +1,1 @@
+virtualenv -p C:\Users\nrenh_000\AppData\Local\Programs\Python\Python36-32, --python=C:\Users\nrenh_000\AppData\Local\Programs\Python\Python36-32 SQENV
