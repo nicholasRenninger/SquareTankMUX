@@ -1,6 +1,5 @@
 OBJS = serialComm.o
-CC = i586-mingw32msvc-g++ 
-DEBUG = -g
+CC = g++
 CFLAGS = -Wall -c -mwindows $(DEBUG)
 LFLAGS = -Wall $(DEBUG)
 
