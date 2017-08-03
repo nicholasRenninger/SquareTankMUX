@@ -40,7 +40,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="/home/nick/Documents/SquareTankMUX/ENV"
+VIRTUAL_ENV="/home/user/Desktop/LASP/SquareTankMUX/Ubuntu/ENV"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

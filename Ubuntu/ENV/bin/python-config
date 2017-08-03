@@ -1,4 +1,4 @@
-#!/home/nick/Documents/SquareTankMUX/ENV/bin/python
+#!/home/user/Desktop/LASP/SquareTankMUX/Ubuntu/ENV/bin/python
 
 import sys
 import getopt
