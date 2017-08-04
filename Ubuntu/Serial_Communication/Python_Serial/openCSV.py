@@ -1,7 +1,8 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 import csv
 import datetime
+from collections import namedtuple
 
 
 ########################################################################
@@ -27,13 +28,25 @@ def openSaveFile():
 
     writer.writeheader()
 
-    return writer
+    retObj = namedtuple('csvRetObjs', ['writer', 'csvfile'])
+    csvObjs = retObj(writer, csvfile)
+
+    return csvObjs
 
 
 ########################################################################
 # takes the writer obj and writes the current pressure, along with the
 # timestamp
-def writeToCSV(pressure, writer):
+def writeToCSV(pressure, csvObjs):
 
     time_data = datetime.datetime.now()
+
+    writer = csvObjs.writer
     writer.writerow({'Timestamp': time_data, 'Pressure [torr]': pressure})
+
+
+########################################################################
+# close the .csv file used for logging
+def closeCSV(csvObjs):
+
+    csvObjs.csvfile.close()

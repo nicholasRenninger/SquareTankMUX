@@ -8,7 +8,7 @@ in a .csv file.
 """
 
 __author__ = "Nicholas Renninger"
-__copyright__ = "Copyright 2017, LASP"
+__copyright__ = "'Copyright' 2017, LASP"
 __credits__ = ["Liam O'Swagger"]
 __license__ = "MIT"
 __version__ = "1.0.0"
@@ -23,6 +23,7 @@ from readMKSGauge import readGauge
 from setup import setupGuagePort
 from openCSV import openSaveFile
 from openCSV import writeToCSV
+from openCSV import closeCSV
 
 
 ########################################################################
@@ -33,9 +34,6 @@ shouldPrint = False
 
 ########################################################################
 # ----- Setup ----- #
-
-# open the .csv file to write to and save the writer object
-csvWriter = openSaveFile()
 
 # set the command to read pressures from the gauge
 readCmd = "@254PR4?;FF"
@@ -55,6 +53,9 @@ if not serPort:
 if serPort.isOpen():
 
     try:
+        # open the .csv file to write to and save the writer object
+        csvObjs = openSaveFile()
+
         # read from gauge until keyboard interrupt
         while True:
 
@@ -67,7 +68,7 @@ if serPort.isOpen():
             print(guageData, "Torr")
 
             if shouldWriteToFile:
-                writeToCSV(guageData, csvWriter)  # write to file
+                writeToCSV(guageData, csvObjs)  # write to file
 
     except KeyboardInterrupt:
         print("Exiting Reading Loop")
@@ -80,6 +81,9 @@ if serPort.isOpen():
 
     # close serial port once the communication has stopped
     serPort.close()
+
+    # close the .csv log file after exiting the guage loop
+    closeCSV(csvObjs)
 
 else:
 

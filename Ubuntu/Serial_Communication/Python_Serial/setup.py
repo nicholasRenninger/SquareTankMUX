@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 # imports
 import serial.tools.list_ports as portz
 from initDevice import initializePort
