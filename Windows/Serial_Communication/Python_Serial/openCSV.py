@@ -1,12 +1,39 @@
-import csv
+#!/usr/bin/env python3
 
-with open('names.csv', 'w+') as csvfile:
-    fieldnames = ['first_name', 'last_name']
+import csv
+import datetime
+
+
+########################################################################
+# opens a .csv file with write permissions and writes the headers
+def openSaveFile():
+
+    # auto-generate timestamp based filename
+    curr_time = datetime.datetime.now()
+    filename = 'pressure-log_' + curr_time.strftime("%Y%m%d-%H%M%S") + '.csv'
+
+    try:
+        csvfile = open(filename, 'w+')
+
+    except Exception as error:
+
+        print("error opening serial port: ", str(error))
+        exit()
+
+    fieldnames = ['Timestamp', 'Pressure [torr]']
     writer = csv.DictWriter(csvfile,
                             fieldnames=fieldnames,
                             lineterminator='\n')
 
     writer.writeheader()
-    writer.writerow({'first_name': 'Baked', 'last_name': 'Beans'})
-    writer.writerow({'first_name': 'Lovely', 'last_name': 'Spam'})
-    writer.writerow({'first_name': 'Wonderful', 'last_name': 'Spam'})
+
+    return writer
+
+
+########################################################################
+# takes the writer obj and writes the current pressure, along with the
+# timestamp
+def writeToCSV(pressure, writer):
+
+    time_data = datetime.datetime.now()
+    writer.writerow({'Timestamp': time_data, 'Pressure [torr]': pressure})

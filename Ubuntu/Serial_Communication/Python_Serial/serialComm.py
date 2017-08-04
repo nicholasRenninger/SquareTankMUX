@@ -1,6 +1,41 @@
-# imports
+#!/usr/bin/env python
+
+""" Enables serial communication with MKS pressure gauges.
+
+Auto-detects the serial port the guage uses, configures the guage properly,
+error checks the entire process, and then records the pressures and timestamps
+in a .csv file.
+"""
+
+__author__ = "Nicholas Renninger"
+__copyright__ = "Copyright 2017, LASP"
+__credits__ = ["Liam O'Swagger"]
+__license__ = "MIT"
+__version__ = "1.0.0"
+__maintainer__ = "Nicholas Renninger"
+__email__ = "nicholas.renninger@colorado.edu"
+__status__ = "Testing"
+
+
+########################################################################
+# ----- Imports ----- #
 from readMKSGauge import readGauge
 from setup import setupGuagePort
+from openCSV import openSaveFile
+from openCSV import writeToCSV
+
+
+########################################################################
+# ----- Constants ----- #
+shouldWriteToFile = True
+shouldPrint = False
+
+
+########################################################################
+# ----- Setup ----- #
+
+# open the .csv file to write to and save the writer object
+csvWriter = openSaveFile()
 
 # set the command to read pressures from the gauge
 readCmd = "@254PR4?;FF"
@@ -14,9 +49,9 @@ serPort = setupGuagePort()
 if not serPort:
     exit()
 
-shouldPrint = False
 
-# Communicating with Device
+########################################################################
+# ----- Device Comm ----- #
 if serPort.isOpen():
 
     try:
@@ -30,6 +65,9 @@ if serPort.isOpen():
                 exit()
 
             print(guageData, "Torr")
+
+            if shouldWriteToFile:
+                writeToCSV(guageData, csvWriter)  # write to file
 
     except KeyboardInterrupt:
         print("Exiting Reading Loop")
