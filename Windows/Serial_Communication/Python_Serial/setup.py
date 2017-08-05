@@ -1,10 +1,13 @@
+#!/usr/bin/env python
+
 # imports
+from __future__ import print_function
 import serial.tools.list_ports as portz
 from initDevice import initializePort
 from readMKSGauge import readGauge
 
 # set the command to request device type data from gauge
-deviceType = "@254DT?;FF"
+pressCMD = "@254DT?;FF"
 
 # valid Device Types
 VALID_DEVICES = ("MICROPIRANI", "DUALMAG")
@@ -28,6 +31,8 @@ def setupGuagePort():
         # MKS gauges online.
         for p in ports:
 
+            print(p)
+
             # open the port with the correct settings for an MKS gauge, and
             # with the current COM port being tested.
             serPort = initializePort(p.device)
@@ -45,12 +50,14 @@ def setupGuagePort():
             # If opening the gauge was successful, determine if the port is an
             # MKS gauge. If it is, return the serial port object.
             shouldPrint = True
-            (errorSTR, guageData) = readGauge(serPort, deviceType, shouldPrint)
+            (errorSTR, guageData) = readGauge(serPort, pressCMD, shouldPrint)
 
+            # now check if the device sends a valid device type back
             if guageData in VALID_DEVICES:
                 print('Using', p.device)
                 return serPort
-            else:
-                print('Did not find valid MKS gauge attached.',
-                      'Check connections and try again.')
-                return ""
+
+        # if no valid devices are found in the entire list, then print an error
+        print ('Did not find valid MKS gauge attached.',
+               'Check connections and try again.')
+        return ""

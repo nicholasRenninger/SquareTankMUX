@@ -1,9 +1,14 @@
 # imports
+from __future__ import print_function
 import time
 
 # codes in guage return strings which indicate device status
 ERROR_MARKER = "NAK"
-GOOD_MARKER = "ACK"
+OK_MARKER = "ACK"
+
+# set the limiting rate for device commincation.
+# essentially, set how often you receive data from device.
+UPDATE_RATE = 1.0  # [s]
 
 # possible error codes for MKS gauges
 ERROR_DICT = {"8": "Zero adjustment at too high pressure",
@@ -27,7 +32,8 @@ def readGauge(serPort, readCommand, shouldPrint):
     # write data
     serPort.write(readCommand.encode('ascii'))
 
-    time.sleep(0.1)  # give the serial port some time to receive the data
+    # give the serial port some time to receive the data
+    time.sleep(UPDATE_RATE)
 
     # this will store the line read from the gauge
     currLine = serPort.readline().decode("utf-8")
@@ -49,6 +55,10 @@ def readGauge(serPort, readCommand, shouldPrint):
 
     if shouldPrint:
         print('write data: ', readCommand)
-        print(guageData)
+
+        if not guageData:
+            print('No response from', serPort.port, '\n')
+        else:
+            print('Connected to', guageData, 'guage\n')
 
     return (errorSTR, guageData)

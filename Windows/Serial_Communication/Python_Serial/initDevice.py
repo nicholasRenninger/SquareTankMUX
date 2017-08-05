@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 # imports
 import serial
 
@@ -14,10 +16,10 @@ def initializePort(portname):
     serPort.bytesize = serial.EIGHTBITS  # number of bits per bytes
     serPort.parity = serial.PARITY_NONE  # set parity check: no parity
     serPort.stopbits = serial.STOPBITS_ONE  # number of stop bits
-    serPort.timeout = 1  # non-block read
+    serPort.timeout = 0  # non-block read
     serPort.xonxoff = False  # disable software flow control
     serPort.rtscts = False  # disable hardware (RTS/CTS) flow control
     serPort.dsrdtr = False  # disable hardware (DSR/DTR) flow control
-    serPort.writeTimeout = 2  # timeout for write
+    serPort.writeTimeout = 0  # timeout for write
 
     return serPort

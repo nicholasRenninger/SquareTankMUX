@@ -7,35 +7,44 @@ error checks the entire process, and then records the pressures and timestamps
 in a .csv file.
 """
 
+
+########################################################################
+# ----- Imports ----- #
+
+from __future__ import print_function
+from readMKSGauge import readGauge
+from setup import setupGuagePort
+from openCSV import openSaveFile
+from openCSV import writeToCSV
+from openCSV import closeCSV
+from OS_Calls import clear_screen
+
+
+########################################################################
+# ----- Author Info ----- #
+
 __author__ = "Nicholas Renninger"
-__copyright__ = "Copyright 2017, LASP"
+__copyright__ = "'Copyright' 2017, LASP"
 __credits__ = ["Liam O'Swagger"]
 __license__ = "MIT"
 __version__ = "1.0.0"
 __maintainer__ = "Nicholas Renninger"
 __email__ = "nicholas.renninger@colorado.edu"
-__status__ = "Testing"
-
-
-########################################################################
-# ----- Imports ----- #
-from readMKSGauge import readGauge
-from setup import setupGuagePort
-from openCSV import openSaveFile
-from openCSV import writeToCSV
+__status__ = "Development"
 
 
 ########################################################################
 # ----- Constants ----- #
-shouldWriteToFile = True
-shouldPrint = False
+
+SHOULD_WRITE_TO_FILE = True
+SHOULD_PRINT = False
 
 
 ########################################################################
 # ----- Setup ----- #
 
-# open the .csv file to write to and save the writer object
-csvWriter = openSaveFile()
+# get rid of any extra shit in shell stdout
+clear_screen()
 
 # set the command to read pressures from the gauge
 readCmd = "@254PR4?;FF"
@@ -52,13 +61,17 @@ if not serPort:
 
 ########################################################################
 # ----- Device Comm ----- #
+
 if serPort.isOpen():
 
     try:
+        # open the .csv file to write to and save the writer object
+        csvObjs = openSaveFile()
+
         # read from gauge until keyboard interrupt
         while True:
 
-            (errorSTR, guageData) = readGauge(serPort, readCmd, shouldPrint)
+            (errorSTR, guageData) = readGauge(serPort, readCmd, SHOULD_PRINT)
 
             if not guageData:
                 print('Lost contact with guage.')
@@ -66,8 +79,8 @@ if serPort.isOpen():
 
             print(guageData, "Torr")
 
-            if shouldWriteToFile:
-                writeToCSV(guageData, csvWriter)  # write to file
+            if SHOULD_WRITE_TO_FILE:
+                writeToCSV(guageData, csvObjs)  # write to file
 
     except KeyboardInterrupt:
         print("Exiting Reading Loop")
@@ -80,6 +93,9 @@ if serPort.isOpen():
 
     # close serial port once the communication has stopped
     serPort.close()
+
+    # close the .csv log file after exiting the guage loop
+    closeCSV(csvObjs)
 
 else:
 
