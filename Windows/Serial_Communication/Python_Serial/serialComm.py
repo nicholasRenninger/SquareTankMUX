@@ -12,6 +12,7 @@ in a .csv file.
 # ----- Imports ----- #
 
 from __future__ import print_function
+from sys import exit
 from readMKSGauge import readGauge
 from setup import setupGuagePort
 from openCSV import openSaveFile
