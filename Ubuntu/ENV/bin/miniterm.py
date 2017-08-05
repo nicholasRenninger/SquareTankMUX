@@ -1,4 +1,4 @@
-#!/home/user/Desktop/LASP/SquareTankMUX/Ubuntu/ENV/bin/python3
+#!/home/user/Desktop/LASP/SquareTankMUX/Ubuntu/ENV/bin/python
 #
 # Very simple serial terminal
 #
