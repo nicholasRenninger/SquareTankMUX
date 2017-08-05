@@ -1,0 +1,1 @@
+Python 2.7 is required for the compilation of the python scripts into executables.
