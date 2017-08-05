@@ -43,8 +43,8 @@ def setupGuagePort():
                 serPort.open()
 
             except Exception as e:
-
-                print("error opening serial port: ", str(e))
+                print(e)
+                print('error opening serialz port: ', e)
                 return ""
 
             # If opening the gauge was successful, determine if the port is an
