@@ -22,7 +22,7 @@ while(1):
 
     # Get user input
     try:
-        input = raw_input()
+        input = raw_input
     except NameError:
         pass
 
