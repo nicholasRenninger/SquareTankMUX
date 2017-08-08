@@ -1,3 +1,4 @@
+from __future__ import print_function
 import RPi.GPIO as GPIO
 import math
 
@@ -21,7 +22,7 @@ while(1):
 
     # Get user input
     try:
-        input = raw_input
+        input = raw_input()
     except NameError:
         pass
 
@@ -29,7 +30,8 @@ while(1):
     selectedLED = int(input("Enter the LED to Light: "))
 
     # address will be a binary string, which will be sent to the GPIO
-    # pins succesively
+    # pins succesivelypassword
+
     LEDAddress = '%0*d' % (numAddressBits, int(bin(selectedLED)[2:]))
 
     # write address to the GPIO pins
