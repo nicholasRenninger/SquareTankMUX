@@ -32,10 +32,11 @@ def setupGuagePort():
         for p in ports:
 
             print(p)
+            deviceName = p[0]
 
             # open the port with the correct settings for an MKS gauge, and
             # with the current COM port being tested.
-            serPort = initializePort(p.device)
+            serPort = initializePort(deviceName)
 
             # open each valid port and see if the device is an MKS gauge
             # opening serial port
@@ -55,7 +56,7 @@ def setupGuagePort():
             # now check if the device sends a valid device type back
             if guageData in VALID_DEVICES:
                 print(p)
-                print('Using', p[0])
+                print('Using', deviceName)
                 return serPort
 
         # if no valid devices are found in the entire list, then print an error
