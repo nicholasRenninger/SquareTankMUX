@@ -4,7 +4,7 @@ block_cipher = None
 
 
 a = Analysis(['serialComm.py'],
-             pathex=['/home/user/Desktop/LASP/SquareTankMUX/Ubuntu/Serial_Communication/Python_Serial'],
+             pathex=['/home/pi/Desktop/SquareTankMUX/RPi/Serial_Communication/Python_Serial'],
              binaries=[],
              datas=[],
              hiddenimports=[],
