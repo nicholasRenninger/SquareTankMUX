@@ -55,7 +55,7 @@ def setupGuagePort():
             # now check if the device sends a valid device type back
             if guageData in VALID_DEVICES:
                 print(p)
-                print('Using', p.device)
+                print('Using', p[0])
                 return serPort
 
         # if no valid devices are found in the entire list, then print an error
