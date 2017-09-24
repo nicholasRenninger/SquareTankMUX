@@ -1,1 +1,4 @@
-*.rb linguist-language=python
+Ubuntu/Python_Serial/build/* linguist-vendored
+Windows/Python_Serial/build/* linguist-vendored
+RPi/Python_Serial/build/* linguist-vendored
+TeX linguist-vendored=false
