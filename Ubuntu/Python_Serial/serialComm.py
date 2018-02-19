@@ -55,6 +55,10 @@ readCmd = "@254PR4?;FF"
 # opening the communication port to the gauge.
 serPort = setupGuagePort()
 
+# set the limiting rate for device commincation.
+# essentially, set how often you receive data from device.
+UPDATE_RATE = 1.0  # [s]
+
 # if the serial port did not open properly, then exit
 if not serPort:
     exit()
@@ -72,7 +76,8 @@ if serPort.isOpen():
         # read from gauge until keyboard interrupt
         while True:
 
-            (errorSTR, guageData) = readGauge(serPort, readCmd, SHOULD_PRINT)
+            (errorSTR, guageData) = readGauge(serPort, readCmd, SHOULD_PRINT,
+                                              UPDATE_RATE)
 
             if not guageData:
                 print('Lost contact with guage.')

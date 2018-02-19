@@ -6,10 +6,6 @@ import time
 ERROR_MARKER = "NAK"
 OK_MARKER = "ACK"
 
-# set the limiting rate for device commincation.
-# essentially, set how often you receive data from device.
-UPDATE_RATE = 1.0  # [s]
-
 # possible error codes for MKS gauges
 ERROR_DICT = {"8": "Zero adjustment at too high pressure",
               "9": "Atmospheric adjustment at too low pressure",
@@ -20,7 +16,7 @@ ERROR_DICT = {"8": "Zero adjustment at too high pressure",
               "180": "Not in setup mode (locked)"}
 
 
-def readGauge(serPort, readCommand, shouldPrint):
+def readGauge(serPort, readCommand, shouldPrint, UPDATE_RATE):
 
     # flush input buffer, discarding all its contents
     serPort.flushInput()
