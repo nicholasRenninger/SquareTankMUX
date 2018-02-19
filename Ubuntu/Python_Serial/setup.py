@@ -19,8 +19,6 @@ comportIDX = 0
 
 def setupGuagePort():
 
-    print(portz.comports())
-
     # Find Live Ports
     ports = list(portz.comports())
 
