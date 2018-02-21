@@ -15,6 +15,7 @@ VALID_DEVICES = ("MICROPIRANI", "DUALMAG")
 # initializations
 comport = "0"
 comportIDX = 0
+rate = 1
 
 
 def setupGuagePort():
@@ -50,7 +51,8 @@ def setupGuagePort():
             # If opening the gauge was successful, determine if the port is an
             # MKS gauge. If it is, return the serial port object.
             shouldPrint = True
-            (errorSTR, guageData) = readGauge(serPort, pressCMD, shouldPrint)
+            (errorSTR, guageData) = readGauge(serPort, pressCMD, shouldPrint,
+                                              rate)
 
             # now check if the device sends a valid device type back
             if guageData in VALID_DEVICES:
