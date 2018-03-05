@@ -1,5 +1,1 @@
-ENV/bin/desktop.ini
-END/desktop.ini
-"MakeFile Example"/desktop.ini
-pyAnalogueMUX/desktop.ini
-Serial_Communication/desktop.ini
+**/desktop.ini
