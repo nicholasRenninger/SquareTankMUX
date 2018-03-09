@@ -13,7 +13,7 @@ from readMKSGauge import readGauge
 pressCMD = "@254SN?;FF"
 
 # create list of valid Device Types from text file
-with open('validDevicesList', 'r') as f:
+with open('validDevicesList.txt', 'r') as f:
 
     VALID_DEVICES = f.readlines()
 
