@@ -16,7 +16,23 @@ ERROR_DICT = {"8": "Zero adjustment at too high pressure",
               "180": "Not in setup mode (locked)"}
 
 
-def readGauge(serPort, readCommand, shouldPrint, UPDATE_RATE):
+def readGauge(serPort, readCommand, shouldPrint, WAIT_TIME):
+
+    """Returns data from the device at serPort's output buffer.
+
+    serPort: an instance of the Serial Port Class, connected to a valid, open
+             device
+
+    readCommand: a string containing the command to be sent over serial to the
+                 device
+
+    shouldPrint: boolean flag as to whether you should print the data received
+                 from the device to stdout
+
+    WAIT_TIME: amount of time for the serial port to sleep between the request
+               for data and reading from the device's output buffer.
+
+    """
 
     # flush input buffer, discarding all its contents
     serPort.flushInput()
@@ -29,7 +45,7 @@ def readGauge(serPort, readCommand, shouldPrint, UPDATE_RATE):
     serPort.write(readCommand.encode('ascii'))
 
     # give the serial port some time to receive the data
-    time.sleep(UPDATE_RATE)
+    time.sleep(WAIT_TIME)
 
     # this will store the line read from the gauge
     currLine = serPort.readline().decode("utf-8")

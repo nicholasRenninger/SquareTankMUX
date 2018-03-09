@@ -6,6 +6,12 @@ import serial
 
 def initializePort(portname):
 
+    """Returns an instance of the Serial Port Class, connected to a valid, open
+       device.
+
+    portname: string containing the serial port name to read from.
+    """
+
     # create serial port object
     serPort = serial.Serial()
 

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # imports
 from __future__ import print_function
@@ -6,14 +6,16 @@ import serial.tools.list_ports as portz
 from initDevice import initializePort
 from readMKSGauge import readGauge
 
-# set the command to request device type data from gauge
-pressCMD = "@254DT?;FF"
+# # set the command to request device type data from gauge
+# pressCMD = "@254DT?;FF"
 
 # set the command to request serial number from gauge
 pressCMD = "@254SN?;FF"
 
-# valid Device Types
-VALID_DEVICES = ("MICROPIRANI", "DUALMAG")
+# create list of valid Device Types from text file
+with open('validDevicesList', 'r') as f:
+
+    VALID_DEVICES = f.readlines()
 
 # initializations
 comport = "0"
@@ -26,7 +28,9 @@ def setupGuagePort():
 
     """Returns list of valid device serial ports.
 
-    Note: The list of valid devices is given by a text file, which contains
+    Note: The list of valid devices is given by a text file,
+    'validDevicesList.txt', which contains the white-listed S/Ns of devices to
+    be used.
     """
 
     # Find Live Ports
