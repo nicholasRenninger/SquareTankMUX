@@ -20,7 +20,8 @@ with open('validDevicesList.txt', 'r') as f:
 # initializations
 comport = "0"
 comportIDX = 0
-rate = 1
+WAIT_TIME = 1
+shouldPrint = True
 validPortList = []
 
 
@@ -62,14 +63,13 @@ def setupGuagePort():
 
             # If opening the gauge was successful, determine if the port is an
             # MKS gauge. If it is, return the serial port object.
-            shouldPrint = True
-            (errorSTR, guageData) = readGauge(serPort, pressCMD, shouldPrint,
-                                              rate)
-            print(guageData)
+            (errorSTR, gaugeData) = readGauge(serPort, pressCMD, shouldPrint,
+                                              WAIT_TIME)
+            print(gaugeData, VALID_DEVICES)
 
             # now check if the device sends a valid device type back
-            if guageData in VALID_DEVICES:
-                print('Using', p.device)
+            if gaugeData in VALID_DEVICES:
+                print('Found', p.device)
                 validPortList.append(serPort)
 
         if not validPortList:
