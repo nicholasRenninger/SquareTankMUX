@@ -31,6 +31,7 @@ def readGauge(serPort, readCommand, shouldPrint, WAIT_TIME):
 
     WAIT_TIME: amount of time for the serial port to sleep between the request
                for data and reading from the device's output buffer.
+               [s]
 
     """
 
