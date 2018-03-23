@@ -14,7 +14,7 @@ pressCMD = "@254SN?;FF"
 
 # create list of valid Device Types from text file
 with open('validDevicesList.txt', 'r') as f:
-
+    # TODO: strip '\n' from each line
     VALID_DEVICES = f.readlines()
 
 # initializations

@@ -60,6 +60,6 @@ def setupGuagePort():
                 return serPort
 
         # if no valid devices are found in the entire list, then print an error
-        print ('Did not find valid MKS gauge attached.',
-               'Check connections and try again.')
+        print('Did not find valid MKS gauge attached.',
+              'Check connections and try again.')
         return ""

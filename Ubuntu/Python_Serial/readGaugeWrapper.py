@@ -5,8 +5,8 @@ from time import time
 
 
 def readGauges(serPortList, readCommand, shouldPrint, UPDATE_RATE):
-
-    """Returns a list of data read from the output buffer of all devices in
+    """
+    Returns a list of data read from the output buffer of all devices in
        serPortList. Returns an empty list if an error occurred.
 
     serPortList: a list of valid instances of the Serial Port Class, connected

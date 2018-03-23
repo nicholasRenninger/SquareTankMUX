@@ -17,8 +17,8 @@ ERROR_DICT = {"8": "Zero adjustment at too high pressure",
 
 
 def readGauge(serPort, readCommand, shouldPrint, WAIT_TIME):
-
-    """Returns data from the device at serPort's output buffer.
+    """
+    Returns data from the device at serPort's output buffer.
 
     serPort: an instance of the Serial Port Class, connected to a valid, open
              device
