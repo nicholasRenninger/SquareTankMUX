@@ -1,0 +1,114 @@
+NUM_DEVICES: 4
+NUM_MUX_ADDRESSES: 8
+
+# Define how often all of devices should be measured sequentially
+# [s]
+UPDATE_RATE: 1
+
+# GPIO MUX address pins
+# LSB of MUX address
+MUX_ADDRESS_PIN_BIT_0: 26
+MUX_ADDRESS_PIN_BIT_1: 20
+# MSB of MUX address
+MUX_ADDRESS_PIN_BIT_2: 21
+
+# invalid GPIO pin:
+# nothing is connected to current MUX address set on the MUX board
+INVALID_PIN: 16
+
+# Force off GPIO pin
+# board is in a bad state (voltages, etc.) - print error and halt
+FORCE_OFF_PIN: 19
+
+# Define names of devices
+DEVICES_TYPES:
+- 'cryo'
+- 'mks925_1'
+- 'mks925_2'
+- 'mks972_1'
+
+# Define the device termination characters
+DEVICE_TERM_CHARS:
+- '\r\n'
+- ';FF'
+- ';FF'
+- ';FF'
+
+# Define the number of characters to throw away at the
+# start of a data message
+DEVICE_DATA_START_CHARS:
+- 0
+- 7
+- 7
+- 7
+
+# Define whether device is on MUX'd serial port or not
+IS_MUXED:
+- no
+- yes
+- yes
+- yes
+
+# Define IDN Commands
+IDN_CMD:
+- 'I'
+- '@254SN?;FF'
+- '@254SN?;FF'
+- '@254SN?;FF'
+
+# Define READ Commands
+READ_CMD:
+- 'Q'
+- '@254PR4?;FF'
+- '@254PR4?;FF'
+- '@254PR4?;FF'
+
+# Define device measurement units
+MEAS_UNITS:
+- 'deg C'
+- 'Torr'
+- 'Torr'
+- 'Torr'
+
+# Define IDN responses
+IDN_ACK:
+- 'Cryo Diode'
+- '925A0232'
+- '925A0233'
+- '972AO903'
+
+# Define ERR Responses
+ERR_NAK:
+- 'Error?'
+- 'NAK'
+- 'NAK'
+- 'NAK'
+
+
+# Define Error codes
+ERR_CODES:
+- 'Cryo Reading Error'
+
+- '8': 'Zero adjustment at too high pressure'
+  '9': 'Atmospheric adjustment at too low pressure'
+  '160': 'Unrecognized message'
+  '169': 'Invalid argument'
+  '172': 'Value out of range'
+  '175': 'Command/query character invalid'
+  '180': 'Not in setup mode (locked)'
+
+- '8': 'Zero adjustment at too high pressure'
+  '9': 'Atmospheric adjustment at too low pressure'
+  '160': 'Unrecognized message'
+  '169': 'Invalid argument'
+  '172': 'Value out of range'
+  '175': 'Command/query character invalid'
+  '180': 'Not in setup mode (locked)'
+
+- '8': 'Zero adjustment at too high pressure'
+  '9': 'Atmospheric adjustment at too low pressure'
+  '160': 'Unrecognized message'
+  '169': 'Invalid argument'
+  '172': 'Value out of range'
+  '175': 'Command/query character invalid'
+  '180': 'Not in setup mode (locked)'

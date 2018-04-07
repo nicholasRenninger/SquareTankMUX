@@ -4,7 +4,7 @@ from readSerialDevice import readDevice
 from time import time
 
 
-def deviceReadWrapper(serPortList, readCommand, shouldPrint, UPDATE_RATE):
+def readDevices(serPortList, readCommand, shouldPrint, UPDATE_RATE):
     """
     Returns a list of data read from the output buffer of all devices in
        serPortList. Returns an empty list if an error occurred.

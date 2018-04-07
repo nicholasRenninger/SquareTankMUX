@@ -1,0 +1,17 @@
+# Define relative file path from working directory to
+# CSV logging file save directory
+rel_data_path: 'Logs'
+
+# start of log filename
+base_file_name: 'measurement-log_'
+
+# timestamp format used for naming log file
+datetime_format: '%Y%m%d-%H%M%S'
+
+# csv column headers
+fieldnames:
+- 'Timestamp'
+- 'Cryo Temp [C]'
+- 'mks925_1 Pressure [torr]'
+- 'mks925_2 Pressure [torr]'
+- 'mks972_1 Pressure [torr]'
