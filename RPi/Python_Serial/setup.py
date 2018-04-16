@@ -103,6 +103,8 @@ def setupDevices(deviceSettingsFile):
                         deviceObj_list.remove(currDevice)
                         break
 
+        print(connectedDevices)
+
         if not connectedDevices:
             return connectedDevices
         else:
