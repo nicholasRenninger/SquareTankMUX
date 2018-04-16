@@ -60,6 +60,7 @@ def setupDevices(deviceSettingsFile):
 
                 print("error opening serial port: ", str(e))
 
+            print(deviceObj_list)
             # If opening the connection was successful, determine what device
             # connected to serPort / MUX address
             for currDevice in deviceObj_list:
