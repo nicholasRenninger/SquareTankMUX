@@ -36,7 +36,7 @@ def openSaveFile(settings):
     # file ext.
     base_path = os.path.dirname(os.path.realpath(__file__))
 
-    rel_path = os.path.join(base_path, settings['rel_folder_path'])
+    rel_path = os.path.join(base_path, settings['rel_data_path'])
 
     file_ext = '.csv'
 
