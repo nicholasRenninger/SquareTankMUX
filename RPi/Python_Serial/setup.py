@@ -95,10 +95,9 @@ def setupDevices(deviceSettingsFile):
                     currDevice.setMUXAddress(None)
 
                 else:
-                    print(idn_string)
                     idn_string = currDevice.read(shouldPrint,
                                                  currDevice.wait_time)
-
+                    print(idn_string)
                     # need to remove currDevice from considered list of devices
                     # as there can only be one device with a certain type
                     if idn_string == currDevice.idn_ack:
