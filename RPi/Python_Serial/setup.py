@@ -29,9 +29,6 @@ def setupDevices(deviceSettingsFile):
     # create list of device objects configured with settings from settings file
     deviceObj_list = readInSettings(deviceSettingsFile)
 
-    # time to wait after reading from device
-    # [s]
-    WAIT_TIME = 0.1
     shouldPrint = True
     connectedDevices = []
 
