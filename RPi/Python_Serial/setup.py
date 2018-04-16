@@ -84,16 +84,18 @@ def setupDevices(deviceSettingsFile):
                         # need to remove currDevice from considered list of
                         # devices as there can only be one device with a
                         # certain type
+                        print(idn_string)
                         if idn_string == currDevice.idn_ack:
                             connectedDevices.append(currDevice)
                             deviceObj_list.remove(currDevice)
-                            break
+                            continue
 
                     # ended for-loop without breaking, be sure to set the
                     # device's mux address back to None for safety
                     currDevice.setMUXAddress(None)
 
                 else:
+                    print(idn_string)
                     idn_string = currDevice.read(shouldPrint,
                                                  currDevice.wait_time)
 
@@ -102,7 +104,7 @@ def setupDevices(deviceSettingsFile):
                     if idn_string == currDevice.idn_ack:
                         connectedDevices.append(currDevice)
                         deviceObj_list.remove(currDevice)
-                        break
+                        continue
 
         print(connectedDevices)
 
