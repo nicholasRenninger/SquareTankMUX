@@ -11,7 +11,6 @@ import RPi.GPIO as GPIO
 
 
 def setupDevices(deviceSettingsFile):
-
     """
     setupDevices()
     Defines a list of possible valid devices which are configured from a YAML
@@ -103,8 +102,8 @@ def setupDevices(deviceSettingsFile):
         else:
             # if no valid devices are found in the entire list, then print an
             # error
-            print ('Did not find any valid measurement devices attached.',
-                   'Check connections and try again.')
+            print('Did not find any valid measurement devices attached.',
+                  'Check connections and try again.')
 
         return None
 
@@ -142,24 +141,27 @@ def readInSettings(settingsFile):
         read_cmd = settings['READ_CMD'][i]
         idn_ack = settings['IDN_ACK'][i]
         is_muxed = settings['IS_MUXED'][i]
-        ser_port = None
-        mux_address = None
         err_nak = settings['ERR_NAK'][i]
         err_codes = settings['ERR_CODES'][i]
+        term_char = settings['DEVICE_TERM_CHARS'][i]
+        num_start_chars = settings['DEVICE_TERM_CHARS'][i]
+        meas_units = settings['MEAS_UNITS'][i]
+        wait_time = settings['WAIT_TIME'][i]
+
         MUX_pins = [settings['MUX_ADDRESS_PIN_BIT_0'],
                     settings['MUX_ADDRESS_PIN_BIT_1'],
                     settings['MUX_ADDRESS_PIN_BIT_2']]
         inv_pin = settings['INVALID_PIN']
         forceOff_pin = settings['FORCE_OFF_PIN']
-        term_char = settings['DEVICE_TERM_CHARS']
-        num_start_chars = settings['DEVICE_TERM_CHARS']
-        meas_units = settings['MEAS_UNITS']
+
+        ser_port = None
+        mux_address = None
 
         newDevice = meas_device(name, idn_cmd, read_cmd, idn_ack, is_muxed,
                                 ser_port, mux_address, err_nak, err_codes,
                                 MUX_pins, inv_pin, forceOff_pin, term_char,
                                 num_start_chars, meas_units, numMuxAddresses,
-                                update_rate)
+                                update_rate, wait_time)
         device_list.append(newDevice)
 
     GPIO_out_pins = MUX_pins

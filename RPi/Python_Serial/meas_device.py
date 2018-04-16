@@ -12,8 +12,7 @@ class meas_device:
     def __init__(self, dev_name, idn_cmd, read_cmd, idn_ack, is_muxed,
                  ser_port, MUX_address, err_nak, err_codes, MUX_pins,
                  inv_pin, forceOff_pin, term_char, num_start_chars,
-                 meas_units, numMuxAddresses, update_rate):
-
+                 meas_units, numMuxAddresses, update_rate, wait_time):
         """
         self.__init__(self, dev_name, idn_cmd, read_cmd, idn_ack, is_muxed,
                       ser_port, MUX_address, err_nak, err_codes, MUX_pins,
@@ -74,6 +73,8 @@ class meas_device:
         :type numMuxAddresses: int
         :param update_rate: how often the device will be measured
         :type update_rate: float [s]
+        :param wait_time: time to wait from device querry to device read
+        :type wait_time: float [s]
 
         :returns: initialized meas_device object
         :rtype: meas_device object
@@ -96,9 +97,9 @@ class meas_device:
         self.meas_units = meas_units
         self.numMuxAddresses = numMuxAddresses
         self.update_rate = update_rate
+        self.wait_time = wait_time
 
     def setPort(self, newPort):
-
         """
         setPort(self, newPort)
         Updates the ser_port attribute of the device object with the serial
@@ -112,7 +113,6 @@ class meas_device:
         self.ser_port = newPort
 
     def setMUXAddress(self, newAddress):
-
         """
         setMUXAddress(self, newAddress)
         Updates the MUX_address attribute of the device object with the address
@@ -126,7 +126,6 @@ class meas_device:
         self.MUX_address = newAddress
 
     def data2Measurement(self, raw_data):
-
         """
         data2Measurement(raw_data)
         Converts raw data string into a measurement of the same units as is
@@ -151,14 +150,13 @@ class meas_device:
         return data
 
     def setMUXAddressPins(self):
-
         """
         setMUXAddressPins(self)
         Sets GPIO MUX address pins for serial read
         """
 
         numAddressBits = int(math.ceil(math.log(self.numMuxAddresses) /
-                             math.log(2)))
+                                       math.log(2)))
 
         # address will be a binary string, which will be sent to the GPIO
         # pins succesively. don't take the 0b portion of 0b101...
@@ -180,10 +178,9 @@ class meas_device:
                 GPIO.output(self.MUX_pins[idx], GPIO.LOW)
 
     def read(self, shouldPrint, WAIT_TIME):
-
         """
         self.read(self, shouldPrint, WAIT_TIME)
-        Error Wrapper (public method) for the __read__ method.
+        Error Wrapper (public method) for the self.__read__() method.
 
         :param shouldPrint: boolean flag as to whether you should print the
                             data received from the device to stdout
@@ -209,7 +206,6 @@ class meas_device:
         return data
 
     def __read__(self, shouldPrint, WAIT_TIME):
-
         """
         self.read(self, shouldPrint, WAIT_TIME)
         Returns string data from the device at ser_port's output buffer.

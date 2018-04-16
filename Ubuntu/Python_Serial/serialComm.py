@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 
-""" Enables serial communication with MKS pressure gauges.
+"""
+Enables serial communication with measurement devices.
 
-Auto-detects the serial ports the allowed guages use, configures the guage
-properly, error checks the entire process, and then records the pressures and
-timestamps in a .csv file. """
+Auto-detects the serial ports the allowed devices use, configures the devices
+properly, error checks the entire process, and then records the measurements
+and timestamps in a .csv file
+"""
 
 
 ########################################################################

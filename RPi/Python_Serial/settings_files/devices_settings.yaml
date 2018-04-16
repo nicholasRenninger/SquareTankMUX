@@ -34,6 +34,14 @@ DEVICE_TERM_CHARS:
 - ';FF'
 - ';FF'
 
+# time to wait after reading from device
+# [s]
+WAIT_TIME:
+- 0.1
+- 0.1
+- 0.1
+- 0.1
+
 # Define the number of characters to throw away at the
 # start of a data message
 DEVICE_DATA_START_CHARS:

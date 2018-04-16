@@ -29,7 +29,7 @@ __author__ = "Nicholas Renninger"
 __copyright__ = "'Copyright' 2018, LASP"
 __credits__ = ["Liam O'Swagger"]
 __license__ = "MIT"
-__version__ = "1.0.0"
+__version__ = "1.2.0"
 __maintainer__ = "Nicholas Renninger"
 __email__ = "nicholas.renninger@colorado.edu"
 __status__ = "Development"
@@ -50,7 +50,7 @@ loggingSettingsFile = 'settings_files/logging_settings.yaml'
 # get rid of any extra shit in shell stdout
 clear_screen()
 
-# Get a list of device measurements from CONNECTED, valid devices defined
+# Get a list of device objects from CONNECTED, valid devices defined
 # in the settings YAML file
 deviceList = setupDevices(deviceSettingsFile)
 
