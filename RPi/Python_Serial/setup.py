@@ -150,7 +150,7 @@ def readInSettings(settingsFile):
         err_nak = settings['ERR_NAK'][i]
         err_codes = settings['ERR_CODES'][i]
         term_char = settings['DEVICE_TERM_CHARS'][i]
-        num_start_chars = settings['DEVICE_TERM_CHARS'][i]
+        num_start_chars = settings['DEVICE_DATA_START_CHARS'][i]
         meas_units = settings['MEAS_UNITS'][i]
         wait_time = settings['WAIT_TIME'][i]
 
