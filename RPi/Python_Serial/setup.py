@@ -74,8 +74,11 @@ def setupDevices(deviceSettingsFile):
                     # have to try all of the MUX ports
                     for mux_address in range(0, currDevice.numMuxAddresses):
 
-                        currDevice.changeMUXStatus(mux_address)
-                        idn_string = currDevice.read(shouldPrint, WAIT_TIME)
+                        # if this is the right mux_address, then the
+                        # mux address will already be set
+                        currDevice.setMUXAddress(mux_address)
+                        idn_string = currDevice.read(shouldPrint,
+                                                     currDevice.wait_time)
 
                         # need to remove currDevice from considered list of
                         # devices as there can only be one device with a
@@ -84,8 +87,14 @@ def setupDevices(deviceSettingsFile):
                             connectedDevices.append(currDevice)
                             deviceObj_list.remove(currDevice)
                             break
+
+                    # ended for-loop without breaking, be sure to set the
+                    # device's mux address back to None for safety
+                    currDevice.setMUXAddress(None)
+
                 else:
-                    idn_string = currDevice.read(shouldPrint, WAIT_TIME)
+                    idn_string = currDevice.read(shouldPrint,
+                                                 currDevice.wait_time)
 
                     # need to remove currDevice from considered list of devices
                     # as there can only be one device with a certain type

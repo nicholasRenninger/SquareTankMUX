@@ -177,14 +177,19 @@ class meas_device:
                 print(self.MUX_pins[idx], 'is low')
                 GPIO.output(self.MUX_pins[idx], GPIO.LOW)
 
-    def read(self, shouldPrint):
+    def read(self, shouldPrint, WAIT_TIME):
         """
-        self.read(self, shouldPrint)
+        self.read(self, shouldPrint, WAIT_TIME)
         Error Wrapper (public method) for the self.__read__() method.
 
         :param shouldPrint: boolean flag as to whether you should print the
                             data received from the device to stdout
         :type shouldPrint: bool
+        :param WAIT_TIME: amount of time for the serial port to sleep
+                          between the request for data and reading from
+                          the device's output buffer.
+                          [s]
+        :type WAIT_TIME: float
 
         :returns: raw data string from device serial read buffer
         :rtype: string (UTF-8)
@@ -193,21 +198,26 @@ class meas_device:
         logger = logging.getLogger(__name__)
 
         try:
-            data = self.__read__(shouldPrint)
+            data = self.__read__(shouldPrint, WAIT_TIME)
         except ValueError as e:
             logger.error(e)
             raise
 
         return data
 
-    def __read__(self, shouldPrint):
+    def __read__(self, shouldPrint, WAIT_TIME):
         """
-        self.read(self, shouldPrint)
+        self.read(self, shouldPrint, WAIT_TIME)
         Returns string data from the device at ser_port's output buffer.
 
         :param shouldPrint: boolean flag as to whether you should print the
                             data received from the device to stdout
         :type shouldPrint: bool
+        :param WAIT_TIME: amount of time for the serial port to sleep
+                          between the request for data and reading from
+                          the device's output buffer.
+                          [s]
+        :type WAIT_TIME: float
 
         :returns: raw data string from device serial read buffer
         :rtype: string (UTF-8)
@@ -224,7 +234,7 @@ class meas_device:
         self.ser_port.write(self.read_cmd.encode('ascii'))
 
         # give the serial port some time to receive the data
-        time.sleep(self.wait_time)
+        time.sleep(WAIT_TIME)
 
         # self.inv_pin is low when there is no device on the current
         # MUX_address
@@ -232,8 +242,7 @@ class meas_device:
             if GPIO.input(self.inv_pin):
                 self.setMUXAddressPins()
             else:
-                data = None
-                return data
+                return None
 
         # reads buffer of guage and formats and converts raw data to a
         # measurement value with the units of self.meas_units
