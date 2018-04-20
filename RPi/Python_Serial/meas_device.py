@@ -177,6 +177,35 @@ class meas_device:
                 print(self.MUX_pins[idx], 'is low')
                 GPIO.output(self.MUX_pins[idx], GPIO.LOW)
 
+    def idn_read(self, WAIT_TIME):
+        """
+        self.idn_read(self, WAIT_TIME)
+        Error Wrapper (public method) for the self.__read__() method, which
+        querries the device with its idn_cmd
+
+        :param WAIT_TIME: amount of time for the serial port to sleep
+                          between the request for data and reading from
+                          the device's output buffer.
+                          [s]
+        :type WAIT_TIME: float
+
+        :returns: raw data string from device serial read buffer
+        :rtype: string (UTF-8)
+        """
+
+        logger = logging.getLogger(__name__)
+
+        shouldPrint = True
+        isIDN = True
+        
+        try:
+            data = self.__read__(shouldPrint, WAIT_TIME, isIDN)
+        except ValueError as e:
+            logger.error(e)
+            raise
+
+        return data
+
     def read(self, shouldPrint, WAIT_TIME):
         """
         self.read(self, shouldPrint, WAIT_TIME)
@@ -196,16 +225,19 @@ class meas_device:
         """
 
         logger = logging.getLogger(__name__)
+        
+        shouldPrint = False
+        isIDN = False
 
         try:
-            data = self.__read__(shouldPrint, WAIT_TIME)
+            data = self.__read__(shouldPrint, WAIT_TIME, isIDN)
         except ValueError as e:
             logger.error(e)
             raise
 
         return data
 
-    def __read__(self, shouldPrint, WAIT_TIME):
+    def __read__(self, shouldPrint, WAIT_TIME, isIDN):
         """
         self.read(self, shouldPrint, WAIT_TIME)
         Returns string data from the device at ser_port's output buffer.
@@ -218,6 +250,8 @@ class meas_device:
                           the device's output buffer.
                           [s]
         :type WAIT_TIME: float
+        :param isIDN: boolean flag to tell read to only use idn_cmd
+        :type isIDN: bool
 
         :returns: raw data string from device serial read buffer
         :rtype: string (UTF-8)
@@ -231,7 +265,12 @@ class meas_device:
         self.ser_port.flushOutput()
 
         # write data
-        self.ser_port.write(self.read_cmd.encode('ascii'))
+        if isIDN:
+            write_cmd = self.idn_cmd
+        else:
+            write_cmd = self.read_cmd
+
+        self.ser_port.write(write_cmd.encode('ascii'))
 
         # give the serial port some time to receive the data
         time.sleep(WAIT_TIME)
@@ -247,7 +286,12 @@ class meas_device:
         # reads buffer of guage and formats and converts raw data to a
         # measurement value with the units of self.meas_units
         currLine = self.ser_port.readline().decode('utf-8')
-        data = self.data2Measurement(currLine)
+        
+        if isIDN:
+            data = self.data2Measurement(currLine)
+        else:
+            data = self.data2Measurement(currLine)
+        
 
         # checking for known error codes in the return string from the gauge
         if self.err_nak in currLine:

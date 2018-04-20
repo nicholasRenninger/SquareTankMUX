@@ -71,7 +71,8 @@ try:
         if not measurements:
             print('Lost contact with devices.')
             exit()
-
+        
+        # TODO add iterator to meas_device class()
         for idx, device in deviceList:
             print(device.name, ': ', measurements[idx],
                   ' [', device.meas_units, ']', sep='')

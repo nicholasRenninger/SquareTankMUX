@@ -14,13 +14,15 @@ def readDevices(deviceList):
                        measured
     :type deviceList: list(meas_device)
     """
-
+    
+    print(deviceList[0])
+    
     # need to calculate how long each guage can wait to be read to ensure the
     # total delay is equal to deviceList[0].update_rate.
     POLL_RATE = deviceList[0].update_rate / len(deviceList)
 
     measList = []
-    start = time.time()
+    start = time()
     shouldPrint = False
 
     # this loop should take about deviceList[0].update_rate [s] to run
@@ -28,7 +30,7 @@ def readDevices(deviceList):
         measurement = device.read(shouldPrint, POLL_RATE)
         measList.append(measurement)
 
-    end = time.time()
+    end = time()
     print('Took', end - start, '[s] to read all', len(deviceList),
           'connected devices')
     return measList

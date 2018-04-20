@@ -30,6 +30,7 @@ def setupDevices(deviceSettingsFile):
     deviceObj_list = readInSettings(deviceSettingsFile)
 
     shouldPrint = True
+    isIDN = True
     connectedDevices = []
 
     # Find Live Ports
@@ -64,7 +65,7 @@ def setupDevices(deviceSettingsFile):
             # If opening the connection was successful, determine what device
             # connected to serPort / MUX address
             for currDevice in deviceObj_list:
-
+                print(currDevice.name)
                 currDevice.setPort(serPort)
 
                 # if the returned currDevice ID string is the same as the
@@ -78,8 +79,7 @@ def setupDevices(deviceSettingsFile):
                         # if this is the right mux_address, then the
                         # mux address will already be set
                         currDevice.setMUXAddress(mux_address)
-                        idn_string = currDevice.read(shouldPrint,
-                                                     currDevice.wait_time)
+                        idn_string = currDevice.idn_read(currDevice.wait_time)
 
                         # need to remove currDevice from considered list of
                         # devices as there can only be one device with a
@@ -95,8 +95,7 @@ def setupDevices(deviceSettingsFile):
                     currDevice.setMUXAddress(None)
 
                 else:
-                    idn_string = currDevice.read(shouldPrint,
-                                                 currDevice.wait_time)
+                    idn_string = currDevice.idn_read(currDevice.wait_time)
                     print(idn_string)
                     # need to remove currDevice from considered list of devices
                     # as there can only be one device with a certain type
@@ -107,7 +106,7 @@ def setupDevices(deviceSettingsFile):
 
         print(connectedDevices)
 
-        if not connectedDevices:
+        if connectedDevices:
             return connectedDevices
         else:
             # if no valid devices are found in the entire list, then print an
