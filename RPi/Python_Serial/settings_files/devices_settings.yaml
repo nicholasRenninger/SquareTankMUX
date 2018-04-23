@@ -29,7 +29,7 @@ DEVICES_TYPES:
 
 # Define the device termination characters
 DEVICE_TERM_CHARS:
-- '\r\n'
+- ''
 - ';FF'
 - ';FF'
 - ';FF'
