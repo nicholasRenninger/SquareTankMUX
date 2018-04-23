@@ -82,7 +82,7 @@ def setupDevices(deviceSettingsFile):
                         # need to remove currDevice from considered list of
                         # devices as there can only be one device with a
                         # certain type
-                        print(idn_string)
+                        print(idn_string, currDevice.idn_ack)
                         if idn_string == currDevice.idn_ack:
                             print('here')
                             connectedDevices.append(currDevice)
@@ -95,7 +95,7 @@ def setupDevices(deviceSettingsFile):
 
                 else:
                     idn_string = currDevice.idn_read(currDevice.wait_time)
-                    print(idn_string)
+                    print(idn_string, currDevice.idn_ack)
                     # need to remove currDevice from considered list of devices
                     # as there can only be one device with a certain type
                     if idn_string == currDevice.idn_ack:
