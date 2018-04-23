@@ -312,6 +312,6 @@ class meas_device:
             if not data:
                 print('No response from', self.ser_port.port, '\n')
             else:
-                print('Connected to', data, 'guage\n')
+                print('Received:', data, 'from', self.name, '\n')
 
         return data
