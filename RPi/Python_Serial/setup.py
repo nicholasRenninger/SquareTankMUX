@@ -104,7 +104,7 @@ def setupDevices(deviceSettingsFile):
                         deviceObj_list.remove(currDevice)
                         continue
 
-        print(connectedDevices)
+        print('\n\nConnected Devices:\n', connectedDevices)
 
         if connectedDevices:
             return connectedDevices
