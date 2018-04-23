@@ -80,7 +80,7 @@ MEAS_UNITS:
 
 # Define IDN responses
 IDN_ACK:
-- 'Cryo Diode'
+- 'CRYO DIODE TRANSDUCER V1.0'
 - '925A0232'
 - '925A0233'
 - '972AO903'
