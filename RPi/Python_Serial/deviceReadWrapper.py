@@ -14,9 +14,9 @@ def readDevices(deviceList):
                        measured
     :type deviceList: list(meas_device)
     """
-    
+
     print(deviceList[0])
-    
+
     # need to calculate how long each guage can wait to be read to ensure the
     # total delay is equal to deviceList[0].update_rate.
     POLL_RATE = deviceList[0].update_rate / len(deviceList)

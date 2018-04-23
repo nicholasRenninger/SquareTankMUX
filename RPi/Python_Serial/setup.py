@@ -29,8 +29,6 @@ def setupDevices(deviceSettingsFile):
     # create list of device objects configured with settings from settings file
     deviceObj_list = readInSettings(deviceSettingsFile)
 
-    shouldPrint = True
-    isIDN = True
     connectedDevices = []
 
     # Find Live Ports
@@ -86,6 +84,7 @@ def setupDevices(deviceSettingsFile):
                         # certain type
                         print(idn_string)
                         if idn_string == currDevice.idn_ack:
+                            print('here')
                             connectedDevices.append(currDevice)
                             deviceObj_list.remove(currDevice)
                             continue
@@ -100,6 +99,7 @@ def setupDevices(deviceSettingsFile):
                     # need to remove currDevice from considered list of devices
                     # as there can only be one device with a certain type
                     if idn_string == currDevice.idn_ack:
+                        print('here')
                         connectedDevices.append(currDevice)
                         deviceObj_list.remove(currDevice)
                         continue
