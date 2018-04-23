@@ -102,6 +102,7 @@ def findDeviceOnPort(serPort, deviceObj_list, connectedDevices):
     # connected to serPort / MUX address
     for currDevice in deviceObj_list:
 
+        print('Attempting connection to ', currDevice.name)
         currDevice.setPort(serPort)
 
         # if the returned currDevice ID string is the same as the
