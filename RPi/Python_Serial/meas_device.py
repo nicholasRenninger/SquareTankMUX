@@ -139,7 +139,6 @@ class meas_device:
                   self.meas_units
         :rtype: string (UTF-8)
         """
-        print(self.num_start_chars)
 
         # remove addressing and termination from data
         data = raw_data[self.num_start_chars:]
