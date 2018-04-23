@@ -81,6 +81,22 @@ def setupDevices(deviceSettingsFile):
 
 
 def findDeviceOnPort(serPort, deviceObj_list, connectedDevices):
+    """
+    findDeviceOnPort(serPort, deviceObj_list, connectedDevices)
+    Searches serPort for any devices in deviceObj_list that are valid, and if
+    it finds a valid device connected, it removes that device from the list of
+    devices to search (deviceObj_list), and adds this device and its updated
+    port / MUX info to connectedDevices. Returns true if the function found a
+    valid device attached to serPort
+
+    :param serPort: the current serial port under consideration
+    :type serPort: pySerial serial port instance
+    :param deviceObj_list: list of devices still not found on any serial port
+    :type deviceObj_list: list(meas_device)
+    :param connectedDevices: list of valid devices that have been found on
+                             serial ports, and have had their info updated
+    :type connectedDevices: list(meas_device)
+    """
 
     # If opening the connection was successful, determine what device
     # connected to serPort / MUX address
