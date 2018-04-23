@@ -59,53 +59,10 @@ def setupDevices(deviceSettingsFile):
 
                 print("error opening serial port: ", str(e))
 
-            # If opening the connection was successful, determine what device
-            # connected to serPort / MUX address
-            for currDevice in deviceObj_list:
+            found = findDeviceOnPort(serPort, deviceObj_list, connectedDevices)
 
-                currDevice.setPort(serPort)
-
-                # if the returned currDevice ID string is the same as the
-                # currDevice's idn_ack string, the device on serPort /
-                # mux_address is really the valid device currDevice
-                if currDevice.is_muxed:
-
-                    # have to try all of the MUX ports
-                    for mux_address in range(0, currDevice.numMuxAddresses):
-
-                        # if this is the right mux_address, then the
-                        # mux address will already be set
-                        currDevice.setMUXAddress(mux_address)
-                        idn_string = currDevice.idn_read(currDevice.wait_time)
-
-                        # need to remove currDevice from considered list of
-                        # devices as there can only be one device with a
-                        # certain type
-
-                        if idn_string == currDevice.idn_ack:
-                            print('Connected to', currDevice.name, 'on',
-                                  currDevice.ser_port.port, 'with MUX Address',
-                                  currDevice.MUX_address, '\n')
-                            connectedDevices.append(currDevice)
-                            deviceObj_list.remove(currDevice)
-                            continue
-
-                    # ended for-loop without breaking, be sure to set the
-                    # device's mux address back to None for safety
-                    currDevice.setMUXAddress(None)
-
-                else:
-                    idn_string = currDevice.idn_read(currDevice.wait_time)
-
-                    # need to remove currDevice from considered list of devices
-                    # as there can only be one device with a certain type
-                    if idn_string == currDevice.idn_ack:
-                        print('Connected to', currDevice.name, 'on',
-                              currDevice.ser_port.port, 'with MUX Address',
-                              currDevice.MUX_address, '\n')
-                        connectedDevices.append(currDevice)
-                        deviceObj_list.remove(currDevice)
-                        continue
+            if found:
+                continue
 
         print('\n\nConnected Devices:')
         for device in connectedDevices:
@@ -121,6 +78,57 @@ def setupDevices(deviceSettingsFile):
                   'Check connections and try again.')
 
         return None
+
+
+def findDeviceOnPort(serPort, deviceObj_list, connectedDevices):
+
+    # If opening the connection was successful, determine what device
+    # connected to serPort / MUX address
+    for currDevice in deviceObj_list:
+
+        currDevice.setPort(serPort)
+
+        # if the returned currDevice ID string is the same as the
+        # currDevice's idn_ack string, the device on serPort /
+        # mux_address is really the valid device currDevice
+        if currDevice.is_muxed:
+
+            # have to try all of the MUX ports
+            for mux_address in range(0, currDevice.numMuxAddresses):
+
+                # if this is the right mux_address, then the
+                # mux address will already be set
+                currDevice.setMUXAddress(mux_address)
+                idn_string = currDevice.idn_read(currDevice.wait_time)
+
+                # need to remove currDevice from considered list of
+                # devices as there can only be one device with a
+                # certain type
+
+                if idn_string == currDevice.idn_ack:
+                    print('Connected to', currDevice.name, 'on',
+                          currDevice.ser_port.port, 'with MUX Address',
+                          currDevice.MUX_address, '\n')
+                    connectedDevices.append(currDevice)
+                    deviceObj_list.remove(currDevice)
+                    return True
+
+            # ended for-loop without breaking, be sure to set the
+            # device's mux address back to None for safety
+            currDevice.setMUXAddress(None)
+
+        else:
+            idn_string = currDevice.idn_read(currDevice.wait_time)
+
+            # need to remove currDevice from considered list of devices
+            # as there can only be one device with a certain type
+            if idn_string == currDevice.idn_ack:
+                print('Connected to', currDevice.name, 'on',
+                      currDevice.ser_port.port, 'with MUX Address',
+                      currDevice.MUX_address, '\n')
+                connectedDevices.append(currDevice)
+                deviceObj_list.remove(currDevice)
+                return True
 
 
 def readInSettings(settingsFile):
