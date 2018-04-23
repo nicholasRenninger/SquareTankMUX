@@ -75,6 +75,7 @@ try:
         for idx, device in enumerate(deviceList):
             print(device.name, ': ', measurements[idx],
                   ' [', device.meas_units, ']', sep='')
+        print('\n')
 
         if SHOULD_WRITE_TO_FILE:
             openCSV.writeToCSV(measurements, csvObjs, fileSettings)
