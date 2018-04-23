@@ -84,7 +84,9 @@ def setupDevices(deviceSettingsFile):
                         # certain type
                         print(idn_string, currDevice.idn_ack)
                         if idn_string == currDevice.idn_ack:
-                            print('here')
+                            print('Connected to', currDevice.name, 'on',
+                                  currDevice.ser_port.port, 'with MUX Address',
+                                  currDevice.MUX_address, '\n')
                             connectedDevices.append(currDevice)
                             deviceObj_list.remove(currDevice)
                             continue
@@ -101,7 +103,7 @@ def setupDevices(deviceSettingsFile):
                     if idn_string == currDevice.idn_ack:
                         print('Connected to', currDevice.name, 'on',
                               currDevice.ser_port.port, 'with MUX Address',
-                              currDevice.MUX_address)
+                              currDevice.MUX_address, '\n')
                         connectedDevices.append(currDevice)
                         deviceObj_list.remove(currDevice)
                         continue
