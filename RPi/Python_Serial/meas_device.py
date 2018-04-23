@@ -197,7 +197,7 @@ class meas_device:
 
         shouldPrint = True
         isIDN = True
-        
+
         try:
             data = self.__read__(shouldPrint, WAIT_TIME, isIDN)
         except ValueError as e:
@@ -225,7 +225,7 @@ class meas_device:
         """
 
         logger = logging.getLogger(__name__)
-        
+
         shouldPrint = False
         isIDN = False
 
@@ -312,6 +312,6 @@ class meas_device:
             if not data:
                 print('No response from', self.ser_port.port, '\n')
             else:
-                print('Received:', data, 'from', self.name, '\n')
+                print('Received:', data, 'from', self.ser_port.port, '\n')
 
         return data
