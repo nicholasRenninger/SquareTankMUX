@@ -44,7 +44,7 @@ def setupDevices(deviceSettingsFile):
         # devices online.
         for p in ports:
 
-            print(p)
+            print('Trying connections to', p)
 
             # open the port with the correct settings for an MKS gauge, and
             # with the current COM port being tested.
@@ -59,11 +59,10 @@ def setupDevices(deviceSettingsFile):
 
                 print("error opening serial port: ", str(e))
 
-            print(deviceObj_list)
             # If opening the connection was successful, determine what device
             # connected to serPort / MUX address
             for currDevice in deviceObj_list:
-                print(currDevice.name)
+
                 currDevice.setPort(serPort)
 
                 # if the returned currDevice ID string is the same as the
@@ -82,7 +81,7 @@ def setupDevices(deviceSettingsFile):
                         # need to remove currDevice from considered list of
                         # devices as there can only be one device with a
                         # certain type
-                        print(idn_string, currDevice.idn_ack)
+
                         if idn_string == currDevice.idn_ack:
                             print('Connected to', currDevice.name, 'on',
                                   currDevice.ser_port.port, 'with MUX Address',
@@ -97,7 +96,7 @@ def setupDevices(deviceSettingsFile):
 
                 else:
                     idn_string = currDevice.idn_read(currDevice.wait_time)
-                    print(idn_string, currDevice.idn_ack)
+
                     # need to remove currDevice from considered list of devices
                     # as there can only be one device with a certain type
                     if idn_string == currDevice.idn_ack:
@@ -108,7 +107,9 @@ def setupDevices(deviceSettingsFile):
                         deviceObj_list.remove(currDevice)
                         continue
 
-        print('\n\nConnected Devices:\n', connectedDevices)
+        print('\n\nConnected Devices:\n')
+        for device in connectedDevices:
+            print(device.name)
 
         if connectedDevices:
             return connectedDevices

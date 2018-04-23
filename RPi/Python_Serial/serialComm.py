@@ -72,8 +72,7 @@ try:
             print('Lost contact with devices.')
             exit()
 
-        # TODO add iterator to meas_device class()
-        for idx, device in deviceList:
+        for idx, device in enumerate(deviceList):
             print(device.name, ': ', measurements[idx],
                   ' [', device.meas_units, ']', sep='')
 
