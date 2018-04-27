@@ -159,11 +159,12 @@ class meas_device:
 
         # address will be a binary string, which will be sent to the GPIO
         # pins succesively. don't take the 0b portion of 0b101...
-        LEDAddress = '%0*d' % (numAddressBits,
-                               int(bin(self.MUX_address)[2:]))
+        address = '%0*d' % (numAddressBits,
+                            int(bin(self.MUX_address)[2:]))
 
+        print('Binary address to use:', address)
         # write MUX address to the GPIO pins
-        for idx, currentPin in enumerate(LEDAddress):
+        for idx, currentPin in enumerate(address):
 
             print('current pin = ', currentPin)
 
@@ -269,18 +270,19 @@ class meas_device:
         else:
             write_cmd = self.read_cmd
 
-        self.ser_port.write(write_cmd.encode('ascii'))
-
-        # give the serial port some time to receive the data
-        time.sleep(WAIT_TIME)
-
         # self.inv_pin is low when there is no device on the current
         # MUX_address
+        print(self.name, ', MUX''?:', self.is_muxed)
         if self.is_muxed:
             if GPIO.input(self.inv_pin):
                 self.setMUXAddressPins()
             else:
                 return None
+
+        self.ser_port.write(write_cmd.encode('ascii'))
+
+        # give the serial port some time to receive the data
+        time.sleep(WAIT_TIME)
 
         # reads buffer of guage and formats and converts raw data to a
         # measurement value with the units of self.meas_units

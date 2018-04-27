@@ -6,7 +6,6 @@ import serial.tools.list_ports as portz
 from initDevice import initializePort
 from meas_device import meas_device
 
-import time
 import yaml
 import RPi.GPIO as GPIO
 
@@ -116,6 +115,7 @@ def findDeviceOnPort(serPort, deviceObj_list, connectedDevices):
 
                 # if this is the right mux_address, then the
                 # mux address will already be set
+                print('Trying MUX address:', mux_address)
                 currDevice.setMUXAddress(mux_address)
                 idn_string = currDevice.idn_read(currDevice.wait_time)
 
