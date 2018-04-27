@@ -237,7 +237,3 @@ def setGPIOPins(GPIO_out_pins, GPIO_in_pins):
 
     for GPIO_Pin in GPIO_in_pins:
         GPIO.setup(GPIO_Pin, GPIO.IN)
-
-    for GPIO_Pin in GPIO_out_pins:
-        GPIO.output(GPIO_Pin, GPIO.HIGH)
-    time.sleep(30)
