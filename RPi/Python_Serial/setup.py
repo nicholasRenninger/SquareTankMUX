@@ -206,6 +206,7 @@ def readInSettings(settingsFile):
 
     GPIO_out_pins = MUX_pins
     GPIO_in_pins = [inv_pin, forceOff_pin]
+    print('Output Pins:', GPIO_out_pins)
     setGPIOPins(GPIO_out_pins, GPIO_in_pins)
 
     return device_list
