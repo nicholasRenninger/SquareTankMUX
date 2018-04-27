@@ -224,7 +224,7 @@ def setGPIOPins(GPIO_out_pins, GPIO_in_pins):
     """
 
     # Setup
-    GPIO.setmode(GPIO.BCM)
+    GPIO.setmode(GPIO.BOARD)
     GPIO.setwarnings(False)
 
     # setup all of the pins to be digital in / out
