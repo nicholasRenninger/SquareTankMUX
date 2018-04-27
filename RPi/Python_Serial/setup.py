@@ -6,6 +6,7 @@ import serial.tools.list_ports as portz
 from initDevice import initializePort
 from meas_device import meas_device
 
+import time
 import yaml
 import RPi.GPIO as GPIO
 
@@ -236,3 +237,7 @@ def setGPIOPins(GPIO_out_pins, GPIO_in_pins):
 
     for GPIO_Pin in GPIO_in_pins:
         GPIO.setup(GPIO_Pin, GPIO.IN)
+
+    for GPIO_Pin in GPIO_out_pins:
+        GPIO.output(GPIO_Pin, GPIO.HIGH)
+    time.sleep(30)
