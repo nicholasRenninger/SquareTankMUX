@@ -54,6 +54,10 @@ clear_screen()
 # in the settings YAML file
 deviceList = setupDevices(deviceSettingsFile)
 
+if not deviceList:
+    print('No Valid Devices Found. Ending Program.')
+    exit()
+
 fileSettings = openCSV.readInSettings(loggingSettingsFile)
 
 ########################################################################
