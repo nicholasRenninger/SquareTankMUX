@@ -53,9 +53,9 @@ DEVICE_DATA_START_CHARS:
 # Define whether device is on MUX'd serial port or not
 IS_MUXED:
 - no
-- no
-- no
-- no
+- yes
+- yes
+- yes
 
 # Define IDN Commands
 IDN_CMD:
