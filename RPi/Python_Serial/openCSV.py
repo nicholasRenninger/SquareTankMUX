@@ -71,15 +71,12 @@ def openSaveFile(settings):
 # timestamp
 def writeToCSV(measurements, csvObjs, settings):
 
-    print(measurements)
-    print(float(measurements[0]))
-
     time_data = datetime.datetime.now()
+    writeData = [float(i) for i in measurements].insert(0, time_data)
 
     writer = csvObjs.writer
 
-    writer.writerow(dict(zip(settings['fieldnames'],
-                             [time_data, [float(i) for i in measurements]])))
+    writer.writerow(dict(zip(settings['fieldnames'], writeData)))
 
 
 ########################################################################

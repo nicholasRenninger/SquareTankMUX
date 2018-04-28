@@ -73,7 +73,7 @@ READ_CMD:
 
 # Define device measurement units
 MEAS_UNITS:
-- 'deg C'
+- 'V'
 - 'Torr'
 - 'Torr'
 - 'Torr'
