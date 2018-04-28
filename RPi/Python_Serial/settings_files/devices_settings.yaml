@@ -7,10 +7,10 @@ UPDATE_RATE: 1
 
 # GPIO MUX address pins
 # LSB of MUX address
-MUX_ADDRESS_PIN_BIT_0: 26
+MUX_ADDRESS_PIN_BIT_0: 21
 MUX_ADDRESS_PIN_BIT_1: 20
 # MSB of MUX address
-MUX_ADDRESS_PIN_BIT_2: 21
+MUX_ADDRESS_PIN_BIT_2: 26
 
 # invalid GPIO pin:
 # nothing is connected to current MUX address set on the MUX board
