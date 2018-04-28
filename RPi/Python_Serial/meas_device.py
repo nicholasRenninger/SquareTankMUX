@@ -286,6 +286,7 @@ class meas_device:
             data = data.rstrip('\r\n')
         else:
             data = self.data2Measurement(currLine)
+            data = data.rstrip('\r\n')
 
         # checking for known error codes in the return string from the gauge
         if self.err_nak in currLine:
