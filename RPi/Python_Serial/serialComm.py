@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python3.6
 
 """
 Enables serial communication with all devices defined in
@@ -8,18 +8,18 @@ Enables serial communication with all devices defined in
 Auto-detects and configures all settings associated with each device in the
 settings file, returns a list of the configured device objects, and allows for
 easy, configurable measurement of each device.
+
+Requires Python 3.6 to work properly, as well as the pyyaml, pySerial, and
+openCSV.
 """
 
-
-########################################################################
-# ----- Imports ----- #
+from deviceReadWrapper import readDevices
+from OS_Calls import clear_screen
+from setup import setupDevices
 
 from __future__ import print_function
 from sys import exit
-from deviceReadWrapper import readDevices
-from setup import setupDevices
 import openCSV
-from OS_Calls import clear_screen
 
 
 ########################################################################

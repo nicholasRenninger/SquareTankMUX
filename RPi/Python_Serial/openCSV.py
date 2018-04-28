@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python3.6
 
 from __future__ import print_function
 from sys import exit
@@ -75,10 +75,7 @@ def writeToCSV(measurements, csvObjs, settings):
     writeData = [float(i) for i in measurements]
     writeData.insert(0, time_data)
 
-    print(writeData)
-
     headers = settings['fieldnames']
-
     writer = csvObjs.writer
 
     writer.writerow(dict(zip(headers, writeData)))
