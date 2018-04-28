@@ -231,9 +231,9 @@ def setGPIOPins(GPIO_out_pins, GPIO_in_pins):
 
     # setup all of the pins to be digital in / out
     for GPIO_Pin in GPIO_out_pins:
-        print('Setting Pin', GPIO_Pin, 'as output')
         GPIO.setup(GPIO_Pin, GPIO.OUT)
-        print('Set Pin', GPIO_Pin, 'as output')
 
     for GPIO_Pin in GPIO_in_pins:
+        print('Setting Pin', GPIO_Pin, 'as output')
         GPIO.setup(GPIO_Pin, GPIO.IN)
+        print('Set Pin', GPIO_Pin, 'as output')

@@ -298,7 +298,7 @@ class meas_device:
 
             if data in self.err_codes:
                 errorSTR = 'error #', data, ':', self.err_codes[data]
-            elif GPIO.input(self.forceOff_pin):
+            elif not GPIO.input(self.forceOff_pin):
                 errorSTR = 'Force-on pin on MUX board is active: check' \
                            ' MUX board / connected devices for electrical' \
                            ' malfunction'
