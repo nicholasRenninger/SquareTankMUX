@@ -146,8 +146,8 @@ class meas_device:
         # cut off termination
         data = data[:-(len(self.term_char))]
 
-        print(type(data))
-        numericData = float(data.rstrip())
+        print(data.rstrip())
+        numericData = float()
         return numericData
 
     def setMUXAddressPins(self):
