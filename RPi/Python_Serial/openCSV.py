@@ -73,6 +73,7 @@ def writeToCSV(measurements, csvObjs, settings):
 
     time_data = datetime.datetime.now()
     writeData = [float(i) for i in measurements].insert(0, time_data)
+    print(writeData)
 
     writer = csvObjs.writer
 
