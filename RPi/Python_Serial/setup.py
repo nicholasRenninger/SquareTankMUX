@@ -131,7 +131,6 @@ def findDevicesOnPort(serPort, deviceObj_list, connectedDevices):
                 # need to remove currDevice from considered list of
                 # devices as there can only be one device with a
                 # certain type
-
                 if idn_string == currDevice.idn_ack:
                     print('Connected to', currDevice.name, 'on',
                           currDevice.ser_port.port, 'with MUX Address',
@@ -151,8 +150,7 @@ def findDevicesOnPort(serPort, deviceObj_list, connectedDevices):
             # as there can only be one device with a certain type
             if idn_string == currDevice.idn_ack:
                 print('Connected to', currDevice.name, 'on',
-                      currDevice.ser_port.port, 'with MUX Address',
-                      currDevice.MUX_address, '\n')
+                      currDevice.ser_port.port, ' (not MUXed)')
                 connectedDevices.append(currDevice)
                 deviceObj_list.remove(currDevice)
                 foundDevice = True
