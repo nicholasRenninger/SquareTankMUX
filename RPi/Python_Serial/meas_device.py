@@ -307,7 +307,7 @@ class meas_device:
                 errorSTR = 'Force-on pin on MUX board is active: check' \
                            ' MUX board / connected devices for electrical' \
                            ' malfunction'
-                raise ValueError('Error Reading from Device: {}', errorSTR)
+                raise ValueError('Error Reading from Device: %s' % errorSTR)
 
         if shouldPrint:
             print('write data: ', self.read_cmd)
