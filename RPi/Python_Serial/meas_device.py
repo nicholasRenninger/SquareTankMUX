@@ -146,6 +146,7 @@ class meas_device:
         # cut off termination
         data = data[:-(len(self.term_char))]
 
+        print(type(data))
         numericData = float(data)
         return numericData
 
