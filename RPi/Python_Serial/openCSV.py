@@ -73,16 +73,16 @@ def writeToCSV(measurements, csvObjs, settings, connectedDevices,
                allPossibleDevices):
 
     # add NaN values for all un-connected devices
-    writeMeas = []
+    tempMeas = []
     for device in allPossibleDevices:
         if device in connectedDevices:
             idx = connectedDevices.index(device)
-            writeMeas.append(measurements[idx])
+            tempMeas.append(measurements[idx])
         else:
-            writeMeas.append('NaN')
+            tempMeas.append('NaN')
 
     time_data = datetime.datetime.now()
-    writeData = [float(i) for i in measurements]
+    writeData = [float(i) for i in tempMeas]
     writeData.insert(0, time_data)
 
     print(writeData)
