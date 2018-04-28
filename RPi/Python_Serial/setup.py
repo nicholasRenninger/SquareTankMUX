@@ -138,6 +138,9 @@ def findDevicesOnPort(serPort, deviceObj_list, connectedDevices):
                     connectedDevices.append(currDevice)
                     deviceObj_list.remove(currDevice)
                     foundDevice = True
+
+                    # stop changing mux addresses once found
+                    continue
                 else:
                     # not a valid device, be sure to set the
                     # device's mux address back to 'None' for safety
