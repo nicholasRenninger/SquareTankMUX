@@ -18,6 +18,10 @@ def readDevices(connectedDevices, allPossibleDevices):
     :param allPossibleDevices: list of all possible devices defined in the
                                config file
     :type allPossibleDevices: list(meas_device)
+
+    :returns: list of measurements taken for all possible devices defined. Any
+              device not connected will have 'NaN' reported as its measurement
+    :rtype: list(str)
     """
 
     # need to calculate how long each guage can wait to be read to ensure the

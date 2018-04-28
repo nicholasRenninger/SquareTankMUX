@@ -25,16 +25,9 @@ def setupDevices(deviceSettingsFile):
                                settings.
     :type deviceSettingsFile: (path) string
 
-    :returns (allPossibleDevices, connectedDevices): tuple of lists of all
-                                                     possible devices and valid
-                                                     devices that
-                                                     have been found on
-                                                     serial ports, and have had
-                                                     their info updated.
-                                                     Returns
-                                                     (allPossibleDevices, None)
-                                                     if no valid devices are
-                                                     found.
+    :returns: tuple of lists of all possible devices and valid devices that
+              have been found onserial ports, and have had their info updated.
+              Returns (allPossibleDevices, None) if no valid devices are found.
     :rtype: tuple(list(meas_device), list(meas_device))
     """
 
