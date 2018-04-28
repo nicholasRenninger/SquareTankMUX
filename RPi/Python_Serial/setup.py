@@ -24,6 +24,11 @@ def setupDevices(deviceSettingsFile):
                                all of the device and hardware configuration
                                settings.
     :type deviceSettingsFile: (path) string
+
+    :returns connectedDevices: list of valid devices that have been found on
+                               serial ports, and have had their info updated.
+                               Returns 'None' if no valid devices are found.
+    :type connectedDevices: list(meas_device)
     """
 
     # create list of device objects configured with settings from settings file
@@ -59,10 +64,7 @@ def setupDevices(deviceSettingsFile):
 
                 print("error opening serial port: ", str(e))
 
-            found = findDeviceOnPort(serPort, deviceObj_list, connectedDevices)
-
-            if found:
-                continue
+            findDevicesOnPort(serPort, deviceObj_list, connectedDevices)
 
         print('\n\nConnected Devices:')
         for device in connectedDevices:
@@ -80,13 +82,13 @@ def setupDevices(deviceSettingsFile):
         return None
 
 
-def findDeviceOnPort(serPort, deviceObj_list, connectedDevices):
+def findDevicesOnPort(serPort, deviceObj_list, connectedDevices):
     """
-    findDeviceOnPort(serPort, deviceObj_list, connectedDevices)
+    findDevicesOnPort(serPort, deviceObj_list, connectedDevices)
     Searches serPort for any devices in deviceObj_list that are valid, and if
     it finds a valid device connected, it removes that device from the list of
     devices to search (deviceObj_list), and adds this device and its updated
-    port / MUX info to connectedDevices. Returns true if the function found a
+    port / MUX info to connectedDevices. Returns true if the function found any
     valid device attached to serPort
 
     :param serPort: the current serial port under consideration
@@ -96,7 +98,14 @@ def findDeviceOnPort(serPort, deviceObj_list, connectedDevices):
     :param connectedDevices: list of valid devices that have been found on
                              serial ports, and have had their info updated
     :type connectedDevices: list(meas_device)
+
+    :returns: whether or not any valid devices were found on the port,
+              implicitly modifies deviceObj_list and connectedDevices by
+              removing and adding devices (respectively) as they are found.
+    :rtype: bool
     """
+
+    foundDevice = False
 
     # If opening the connection was successful, determine what device
     # connected to serPort / MUX address
@@ -129,7 +138,7 @@ def findDeviceOnPort(serPort, deviceObj_list, connectedDevices):
                           currDevice.MUX_address, '\n')
                     connectedDevices.append(currDevice)
                     deviceObj_list.remove(currDevice)
-                    return True
+                    foundDevice = True
 
             # ended for-loop without breaking, be sure to set the
             # device's mux address back to None for safety
@@ -146,7 +155,9 @@ def findDeviceOnPort(serPort, deviceObj_list, connectedDevices):
                       currDevice.MUX_address, '\n')
                 connectedDevices.append(currDevice)
                 deviceObj_list.remove(currDevice)
-                return True
+                foundDevice = True
+
+    return foundDevice
 
 
 def readInSettings(settingsFile):
