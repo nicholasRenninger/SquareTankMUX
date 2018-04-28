@@ -82,7 +82,7 @@ try:
         print('\n')
 
         if SHOULD_WRITE_TO_FILE:
-            openCSV.writeToCSV(measurements, csvObjs, fileSettings)
+            openCSV.writeToCSV(measurements, csvObjs, deviceList)
 
 except KeyboardInterrupt:
     print("Exiting Reading Loop")

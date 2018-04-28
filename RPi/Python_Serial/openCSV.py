@@ -69,7 +69,7 @@ def openSaveFile(settings):
 ########################################################################
 # takes the writer obj and writes the current measurements, along with the
 # timestamp
-def writeToCSV(measurements, csvObjs, settings):
+def writeToCSV(measurements, csvObjs, deviceList):
 
     time_data = datetime.datetime.now()
     writeData = [float(i) for i in measurements]
@@ -77,9 +77,11 @@ def writeToCSV(measurements, csvObjs, settings):
 
     print(writeData)
 
+    headers = [device.name for device in deviceList]
+
     writer = csvObjs.writer
 
-    writer.writerow(dict(zip(settings['fieldnames'], writeData)))
+    writer.writerow(dict(zip(headers, writeData)))
 
 
 ########################################################################
