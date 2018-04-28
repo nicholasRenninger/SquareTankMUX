@@ -8,6 +8,7 @@ from meas_device import meas_device
 
 import yaml
 import RPi.GPIO as GPIO
+import difflib
 
 
 def setupDevices(deviceSettingsFile):
@@ -154,6 +155,15 @@ def findDevicesOnPort(serPort, deviceObj_list, connectedDevices):
 
         else:
             idn_string = currDevice.idn_read(currDevice.wait_time)
+
+            for i, s in enumerate(difflib.ndiff(idn_string,
+                                                currDevice.idn_ack)):
+                if s[0] == ' ':
+                    continue
+                elif s[0] == '-':
+                    print(u'Delete "{}" from position {}'.format(s[-1], i))
+                elif s[0] == '+':
+                    print(u'Add "{}" to position {}'.format(s[-1], i))
 
             # need to remove currDevice from considered list of devices
             # as there can only be one device with a certain type

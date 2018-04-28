@@ -142,7 +142,6 @@ class meas_device:
 
         # remove addressing and termination from data
         data = raw_data[self.num_start_chars:]
-        print(data)
 
         # cut off termination
         data = data[(len(self.term_char)):]
@@ -281,8 +280,6 @@ class meas_device:
         # reads buffer of guage and formats and converts raw data to a
         # measurement value with the units of self.meas_units
         currLine = self.ser_port.readline().decode('utf-8')
-
-        print(currLine)
 
         if isIDN:
             data = self.data2Measurement(currLine)
