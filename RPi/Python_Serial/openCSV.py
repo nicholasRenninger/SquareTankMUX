@@ -69,20 +69,10 @@ def openSaveFile(settings):
 ########################################################################
 # takes the writer obj and writes the current measurements, along with the
 # timestamp
-def writeToCSV(measurements, csvObjs, settings, connectedDevices,
-               allPossibleDevices):
-
-    # add NaN values for all un-connected devices
-    tempMeas = []
-    for device in allPossibleDevices:
-        if device in connectedDevices:
-            idx = connectedDevices.index(device)
-            tempMeas.append(measurements[idx])
-        else:
-            tempMeas.append('NaN')
+def writeToCSV(measurements, csvObjs, settings):
 
     time_data = datetime.datetime.now()
-    writeData = [float(i) for i in tempMeas]
+    writeData = [float(i) for i in measurements]
     writeData.insert(0, time_data)
 
     print(writeData)

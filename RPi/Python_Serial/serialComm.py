@@ -29,7 +29,7 @@ __author__ = "Nicholas Renninger"
 __copyright__ = "'Copyright' 2018, LASP"
 __credits__ = ["Liam O'Swagger"]
 __license__ = "MIT"
-__version__ = "1.2.0"
+__version__ = "1.3.0"
 __maintainer__ = "Nicholas Renninger"
 __email__ = "nicholas.renninger@colorado.edu"
 __status__ = "Development"
@@ -70,7 +70,7 @@ try:
     # read from gauge until keyboard interrupt
     while True:
 
-        measurements = readDevices(connectedDevices)
+        measurements = readDevices(connectedDevices, allPossibleDevices)
 
         if not measurements:
             print('Lost contact with devices.')
@@ -82,8 +82,7 @@ try:
         print('\n')
 
         if SHOULD_WRITE_TO_FILE:
-            openCSV.writeToCSV(measurements, csvObjs, fileSettings,
-                               connectedDevices, allPossibleDevices)
+            openCSV.writeToCSV(measurements, csvObjs, fileSettings)
 
 except KeyboardInterrupt:
     print("Exiting Reading Loop")

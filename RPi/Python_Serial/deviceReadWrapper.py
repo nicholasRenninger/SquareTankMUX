@@ -4,31 +4,46 @@ from __future__ import print_function
 from time import time
 
 
-def readDevices(deviceList):
+def readDevices(connectedDevices, allPossibleDevices):
     """
+    readDevices(connectedDevices, allPossibleDevices)
     Returns a list of device measurements from CONNECTED, valid devices defined
     in the settings YAML file. Reads each device sequentially, with the
-    measurement of each device completed every deviceList[0].update_rate [s]
+    measurement of each device completed every
+    connectedDevices[0].update_rate [s]
 
-    :param deviceList: list of valid, connected meas_device objects to be
+    :param connectedDevices: list of valid, connected meas_device objects to be
                        measured
-    :type deviceList: list(meas_device)
+    :type connectedDevices: list(meas_device)
+    :param allPossibleDevices: list of all possible devices defined in the
+                               config file
+    :type allPossibleDevices: list(meas_device)
     """
 
     # need to calculate how long each guage can wait to be read to ensure the
-    # total delay is equal to deviceList[0].update_rate.
-    POLL_RATE = deviceList[0].update_rate / len(deviceList)
+    # total delay is equal to connectedDevices[0].update_rate.
+    POLL_RATE = connectedDevices[0].update_rate / len(connectedDevices)
 
-    measList = []
+    tempList = []
     start = time()
     shouldPrint = False
 
-    # this loop should take about deviceList[0].update_rate [s] to run
-    for device in deviceList:
+    # this loop should take about connectedDevices[0].update_rate [s] to run
+    for device in connectedDevices:
         measurement = device.read(shouldPrint, POLL_RATE)
-        measList.append(measurement)
+        tempList.append(measurement)
+
+    # add NaN values for all un-connected devices
+    measList = []
+    for device in allPossibleDevices:
+        if device in connectedDevices:
+            idx = connectedDevices.index(device)
+            measList.append(measList[idx])
+        else:
+            measList.append('NaN')
 
     end = time()
-    print('Took', end - start, '[s] to read all', len(deviceList),
+    print('Took', end - start, '[s] to read all', len(connectedDevices),
           'connected devices')
+
     return measList
