@@ -79,6 +79,7 @@ def writeToCSV(measurements, csvObjs, settings):
     writer = csvObjs.writer
 
     writer.writerow(dict(zip(headers, writeData)))
+    csvObjs.csvfile.flush()
 
 
 ########################################################################
