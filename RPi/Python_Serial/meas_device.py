@@ -283,7 +283,7 @@ class meas_device:
 
         if isIDN:
             data = self.data2Measurement(currLine)
-            data.rstrip('\n\r')
+            data.rstrip('\n')
         else:
             data = self.data2Measurement(currLine)
 
