@@ -274,9 +274,8 @@ class meas_device:
         # MUX_address
         print(self.name, ', MUX''?:', self.is_muxed)
         if self.is_muxed:
+            self.setMUXAddressPins()
             if GPIO.input(self.inv_pin):
-                self.setMUXAddressPins()
-            else:
                 return None
 
         self.ser_port.write(write_cmd.encode('ascii'))
