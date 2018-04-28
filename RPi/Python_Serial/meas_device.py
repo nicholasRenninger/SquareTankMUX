@@ -146,7 +146,7 @@ class meas_device:
         # cut off termination
         data = data[:-(len(self.term_char))]
 
-        print('stripped data:', data.rstrip())
+        print('stripped data:', data.rstrip('\n'))
         numericData = float()
         return numericData
 
