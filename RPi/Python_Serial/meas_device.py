@@ -145,7 +145,8 @@ class meas_device:
         print(data)
 
         # cut off termination
-        data = data[(len(self.term_char)):]
+        if not self.term_char:
+            data = data[:-(len(self.term_char))]
 
         return data
 
