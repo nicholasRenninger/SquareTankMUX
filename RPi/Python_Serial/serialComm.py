@@ -12,12 +12,12 @@ easy, configurable measurement of each device.
 Requires Python 3.6 to work properly, as well as the pyyaml, pySerial, and
 openCSV.
 """
+from __future__ import print_function
 
 from deviceReadWrapper import readDevices
 from OS_Calls import clear_screen
 from setup import setupDevices
 
-from __future__ import print_function
 from sys import exit
 import openCSV
 
