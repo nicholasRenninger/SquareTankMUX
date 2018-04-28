@@ -82,8 +82,8 @@ try:
         print('\n')
 
         if SHOULD_WRITE_TO_FILE:
-            openCSV.writeToCSV(measurements, csvObjs, connectedDevices,
-                               allPossibleDevices)
+            openCSV.writeToCSV(measurements, csvObjs, fileSettings,
+                               connectedDevices, allPossibleDevices)
 
 except KeyboardInterrupt:
     print("Exiting Reading Loop")
