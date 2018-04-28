@@ -136,7 +136,10 @@ def findDevicesOnPort(serPort, deviceObj_list, connectedDevices):
                           currDevice.ser_port.port, 'with MUX Address',
                           currDevice.MUX_address, '\n')
                     connectedDevices.append(currDevice)
-                    deviceObj_list.remove(currDevice)
+
+                    # remove current device without messing up iteration
+                    deviceObj_list[:] = [dev for dev in deviceObj_list if not
+                                         dev == currDevice]
                     foundDevice = True
 
                     # stop changing mux addresses once found
@@ -144,7 +147,6 @@ def findDevicesOnPort(serPort, deviceObj_list, connectedDevices):
                 else:
                     # not a valid device, be sure to set the
                     # device's mux address back to 'None' for safety
-                    print('Resetting', currDevice.name, ' ''s MUX address')
                     currDevice.setMUXAddress(None)
 
         else:
@@ -156,7 +158,10 @@ def findDevicesOnPort(serPort, deviceObj_list, connectedDevices):
                 print('Connected to', currDevice.name, 'on',
                       currDevice.ser_port.port, ' (not MUXed)')
                 connectedDevices.append(currDevice)
-                deviceObj_list.remove(currDevice)
+
+                # remove current device without messing up iteration
+                deviceObj_list[:] = [dev for dev in deviceObj_list if not
+                                     dev == currDevice]
                 foundDevice = True
 
     return foundDevice
