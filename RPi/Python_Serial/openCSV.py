@@ -30,7 +30,7 @@ def readInSettings(settingsFile):
 
 ########################################################################
 # opens a .csv file with write permissions and writes the headers
-def openSaveFile(settings, deviceList):
+def openSaveFile(settings):
 
     # set the relative path from the calling directory, base filename, and
     # file ext.
@@ -53,7 +53,7 @@ def openSaveFile(settings, deviceList):
         print("error opening serial port: ", str(error))
         exit()
 
-    fieldnames = [device.name for device in deviceList]
+    fieldnames = settings['fieldnames']
     writer = csv.DictWriter(csvfile,
                             fieldnames=fieldnames,
                             lineterminator='\n')
@@ -69,7 +69,17 @@ def openSaveFile(settings, deviceList):
 ########################################################################
 # takes the writer obj and writes the current measurements, along with the
 # timestamp
-def writeToCSV(measurements, csvObjs, deviceList):
+def writeToCSV(measurements, csvObjs, settings, connectedDevices,
+               allPossibleDevices):
+
+    # add NaN values for all un-connected devices
+    writeMeas = []
+    for device in allPossibleDevices:
+        if device in connectedDevices:
+            idx = connectedDevices.index(device)
+            writeMeas.append(measurements[idx])
+        else:
+            writeMeas.append('NaN')
 
     time_data = datetime.datetime.now()
     writeData = [float(i) for i in measurements]
@@ -77,7 +87,7 @@ def writeToCSV(measurements, csvObjs, deviceList):
 
     print(writeData)
 
-    headers = [device.name for device in deviceList]
+    headers = settings['fieldnames']
 
     writer = csvObjs.writer
 

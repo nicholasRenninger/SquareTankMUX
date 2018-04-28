@@ -52,9 +52,9 @@ clear_screen()
 
 # Get a list of device objects from CONNECTED, valid devices defined
 # in the settings YAML file
-deviceList = setupDevices(deviceSettingsFile)
+(allPossibleDevices, connectedDevices) = setupDevices(deviceSettingsFile)
 
-if not deviceList:
+if not connectedDevices:
     print('No Valid Devices Found. Ending Program.')
     exit()
 
@@ -70,25 +70,26 @@ try:
     # read from gauge until keyboard interrupt
     while True:
 
-        measurements = readDevices(deviceList)
+        measurements = readDevices(connectedDevices)
 
         if not measurements:
             print('Lost contact with devices.')
             exit()
 
-        for idx, device in enumerate(deviceList):
+        for idx, device in enumerate(connectedDevices):
             print(device.name, ': ', measurements[idx],
                   ' [', device.meas_units, ']', sep='')
         print('\n')
 
         if SHOULD_WRITE_TO_FILE:
-            openCSV.writeToCSV(measurements, csvObjs, deviceList)
+            openCSV.writeToCSV(measurements, csvObjs, connectedDevices,
+                               allPossibleDevices)
 
 except KeyboardInterrupt:
     print("Exiting Reading Loop")
 
 # close serial port once the communication has stopped
-for device in deviceList:
+for device in connectedDevices:
     device.ser_port.close()
 
 # close the .csv log file after exiting the guage loop

@@ -25,14 +25,22 @@ def setupDevices(deviceSettingsFile):
                                settings.
     :type deviceSettingsFile: (path) string
 
-    :returns connectedDevices: list of valid devices that have been found on
-                               serial ports, and have had their info updated.
-                               Returns 'None' if no valid devices are found.
-    :type connectedDevices: list(meas_device)
+    :returns (allPossibleDevices, connectedDevices): tuple of lists of all
+                                                     possible devices and valid
+                                                     devices that
+                                                     have been found on
+                                                     serial ports, and have had
+                                                     their info updated.
+                                                     Returns
+                                                     (allPossibleDevices, None)
+                                                     if no valid devices are
+                                                     found.
+    :rtype: tuple(list(meas_device), list(meas_device))
     """
 
     # create list of device objects configured with settings from settings file
     deviceObj_list = readInSettings(deviceSettingsFile)
+    allPossibleDevices = deviceObj_list[:]
 
     connectedDevices = []
 
@@ -42,7 +50,7 @@ def setupDevices(deviceSettingsFile):
     if not ports:
         print('No devices detected. Check connections / serial port'
               ' settings and try again.')
-        return None
+        return (allPossibleDevices, None)
 
     else:
         # Loop through all of the availible ports to determine if there are any
@@ -72,14 +80,14 @@ def setupDevices(deviceSettingsFile):
         print('\n')
 
         if connectedDevices:
-            return connectedDevices
+            return (allPossibleDevices, connectedDevices)
         else:
             # if no valid devices are found in the entire list, then print an
             # error
             print('Did not find any valid measurement devices attached.',
                   'Check connections and try again.')
 
-        return None
+        return (allPossibleDevices, None)
 
 
 def findDevicesOnPort(serPort, deviceObj_list, connectedDevices):
