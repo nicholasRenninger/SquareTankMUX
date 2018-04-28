@@ -282,7 +282,7 @@ class meas_device:
         currLine = self.ser_port.readline().decode('utf-8')
 
         if isIDN:
-            data = self.data2Measurement(currLine)
+            data = currLine.rstrip('\n')
         else:
             data = self.data2Measurement(currLine)
 
