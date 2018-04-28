@@ -157,7 +157,7 @@ def findDevicesOnPort(serPort, deviceObj_list, connectedDevices):
             idn_string = currDevice.idn_read(currDevice.wait_time)
 
             print(show_diff(idn_string, currDevice.idn_ack))
-
+            print(idn_string, currDevice.idn_ack)
             # need to remove currDevice from considered list of devices
             # as there can only be one device with a certain type
             if idn_string == currDevice.idn_ack:
