@@ -156,14 +156,7 @@ def findDevicesOnPort(serPort, deviceObj_list, connectedDevices):
         else:
             idn_string = currDevice.idn_read(currDevice.wait_time)
 
-            for i, s in enumerate(difflib.ndiff(idn_string,
-                                                currDevice.idn_ack)):
-                if s[0] == ' ':
-                    continue
-                elif s[0] == '-':
-                    print(u'Delete "{}" from position {}'.format(s[-1], i))
-                elif s[0] == '+':
-                    print(u'Add "{}" to position {}'.format(s[-1], i))
+            show_diff(idn_string, currDevice.idn_ack)
 
             # need to remove currDevice from considered list of devices
             # as there can only be one device with a certain type
@@ -175,6 +168,29 @@ def findDevicesOnPort(serPort, deviceObj_list, connectedDevices):
                 foundDevice = True
 
     return foundDevice
+
+
+def show_diff(text, n_text):
+    """
+    http://stackoverflow.com/a/788780
+    Unify operations between two compared strings seqm is a difflib.
+    SequenceMatcher instance whose a & b are strings
+    """
+    seqm = difflib.SequenceMatcher(None, text, n_text)
+    output = []
+    for opcode, a0, a1, b0, b1 in seqm.get_opcodes():
+        if opcode == 'equal':
+            output.append(seqm.a[a0:a1])
+        elif opcode == 'insert':
+            output.append("<font color=red>^" + seqm.b[b0:b1] + "</font>")
+        elif opcode == 'delete':
+            output.append("<font color=blue>^" + seqm.a[a0:a1] + "</font>")
+        elif opcode == 'replace':
+            # seqm.a[a0:a1] -> seqm.b[b0:b1]
+            output.append("<font color=green>^" + seqm.b[b0:b1] + "</font>")
+        else:
+            print('bad touch sir')
+    return ''.join(output)
 
 
 def readInSettings(settingsFile):
