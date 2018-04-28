@@ -30,7 +30,7 @@ def readInSettings(settingsFile):
 
 ########################################################################
 # opens a .csv file with write permissions and writes the headers
-def openSaveFile(settings):
+def openSaveFile(settings, deviceList):
 
     # set the relative path from the calling directory, base filename, and
     # file ext.
@@ -53,7 +53,7 @@ def openSaveFile(settings):
         print("error opening serial port: ", str(error))
         exit()
 
-    fieldnames = settings['fieldnames']
+    fieldnames = [device.name for device in deviceList]
     writer = csv.DictWriter(csvfile,
                             fieldnames=fieldnames,
                             lineterminator='\n')
