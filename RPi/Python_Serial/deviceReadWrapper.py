@@ -38,7 +38,7 @@ def readDevices(connectedDevices, allPossibleDevices):
     for device in allPossibleDevices:
         if device in connectedDevices:
             idx = connectedDevices.index(device)
-            measList.append(measurement[idx])
+            measList.append(tempList[idx])
         else:
             measList.append('NaN')
 
