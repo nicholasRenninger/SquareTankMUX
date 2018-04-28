@@ -303,7 +303,7 @@ class meas_device:
                 raise ValueError('Error Reading from Device: %s' % errorSTR)
 
         if shouldPrint:
-            print('write data: ', write_cmd)
+            print('write data:', write_cmd)
 
             if not data:
                 print('No response from', self.ser_port.port, '\n')
