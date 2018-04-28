@@ -139,10 +139,10 @@ def findDevicesOnPort(serPort, deviceObj_list, connectedDevices):
                     connectedDevices.append(currDevice)
                     deviceObj_list.remove(currDevice)
                     foundDevice = True
-
-            # ended for-loop without breaking, be sure to set the
-            # device's mux address back to None for safety
-            currDevice.setMUXAddress(None)
+                else:
+                    # not a valid device, be sure to set the
+                    # device's mux address back to 'None' for safety
+                    currDevice.setMUXAddress(None)
 
         else:
             idn_string = currDevice.idn_read(currDevice.wait_time)
