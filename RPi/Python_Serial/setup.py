@@ -234,6 +234,4 @@ def setGPIOPins(GPIO_out_pins, GPIO_in_pins):
         GPIO.setup(GPIO_Pin, GPIO.OUT)
 
     for GPIO_Pin in GPIO_in_pins:
-        print('Setting Pin', GPIO_Pin, 'as input')
         GPIO.setup(GPIO_Pin, GPIO.IN)
-        print('Set Pin', GPIO_Pin, 'as input')

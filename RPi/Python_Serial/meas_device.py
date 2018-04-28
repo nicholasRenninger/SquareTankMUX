@@ -162,19 +162,14 @@ class meas_device:
         address = '%0*d' % (numAddressBits,
                             int(bin(self.MUX_address)[2:]))
 
-        print('Binary address to use:', address)
         # write MUX address to the GPIO pins
         for idx, currentPin in enumerate(address):
-
-            print('current pin = ', currentPin)
 
             # Setup the MUX
             if (currentPin == '1'):
                 GPIO.output(self.MUX_pins[idx], GPIO.HIGH)
-                print(self.MUX_pins[idx], 'is high')
             else:
                 # currentPin = 0
-                print(self.MUX_pins[idx], 'is low')
                 GPIO.output(self.MUX_pins[idx], GPIO.LOW)
 
     def idn_read(self, WAIT_TIME):
@@ -272,10 +267,8 @@ class meas_device:
 
         # self.inv_pin is low when there is no device on the current
         # MUX_address
-        print(self.name, ', MUX''?:', self.is_muxed)
-        if self.is_muxed:
+        if self.is_muxed and not isIDN:
             self.setMUXAddressPins()
-            print('Invalid Pin:', GPIO.input(self.inv_pin))
             if not GPIO.input(self.inv_pin):
                 return None
 
