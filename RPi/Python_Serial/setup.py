@@ -141,6 +141,7 @@ def findDevicesOnPort(serPort, deviceObj_list, connectedDevices):
                 else:
                     # not a valid device, be sure to set the
                     # device's mux address back to 'None' for safety
+                    print('Resetting', currDevice.name, ' ''s MUX address')
                     currDevice.setMUXAddress(None)
 
         else:
