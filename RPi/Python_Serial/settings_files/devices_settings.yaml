@@ -46,9 +46,9 @@ WAIT_TIME:
 # start of a data message
 DEVICE_DATA_START_CHARS:
 - 0
-- 4
-- 4
-- 4
+- 7
+- 7
+- 7
 
 # Define whether device is on MUX'd serial port or not
 IS_MUXED:
