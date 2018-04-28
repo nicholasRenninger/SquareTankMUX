@@ -37,7 +37,7 @@ DEVICE_TERM_CHARS:
 # time to wait after reading from device
 # [s]
 WAIT_TIME:
-- 0.25
+- 0.1
 - 0.1
 - 0.1
 - 0.1

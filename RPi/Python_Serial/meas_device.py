@@ -281,6 +281,8 @@ class meas_device:
         # measurement value with the units of self.meas_units
         currLine = self.ser_port.readline().decode('utf-8')
 
+        print(currLine)
+
         if isIDN:
             data = self.data2Measurement(currLine)
         else:
