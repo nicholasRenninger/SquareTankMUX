@@ -71,6 +71,9 @@ def openSaveFile(settings):
 # timestamp
 def writeToCSV(measurements, csvObjs, settings):
 
+    print(measurements)
+    print(float(measurements[0]))
+
     time_data = datetime.datetime.now()
 
     writer = csvObjs.writer
