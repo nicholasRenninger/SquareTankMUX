@@ -76,7 +76,7 @@ try:
             print('Lost contact with devices.')
             exit()
 
-        for idx, device in enumerate(connectedDevices):
+        for idx, device in enumerate(allPossibleDevices):
             print(device.name, ': ', measurements[idx],
                   ' [', device.meas_units, ']', sep='')
         print('\n')
