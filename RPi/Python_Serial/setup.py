@@ -105,11 +105,16 @@ def findDevicesOnPort(serPort, deviceObj_list, connectedDevices):
     :rtype: bool
     """
 
+    # need to update deviceObj_list to remove devices that are found on this
+    # port so they are not searched in the future, so create new copy here for
+    # iteration, and update the orignal device list accordingly
+    tempDevList = deviceObj_list[:]
+
     foundDevice = False
 
     # If opening the connection was successful, determine what device
     # connected to serPort / MUX address
-    for currDevice in deviceObj_list:
+    for currDevice in tempDevList:
 
         print('Attempting connection to', currDevice.name)
         currDevice.setPort(serPort)
@@ -136,10 +141,7 @@ def findDevicesOnPort(serPort, deviceObj_list, connectedDevices):
                           currDevice.ser_port.port, 'with MUX Address',
                           currDevice.MUX_address, '\n')
                     connectedDevices.append(currDevice)
-
-                    # remove current device without messing up iteration
-                    deviceObj_list[:] = [dev for dev in deviceObj_list if not
-                                         dev == currDevice]
+                    deviceObj_list.remove(currDevice)
                     foundDevice = True
 
                     # stop changing mux addresses once found
@@ -158,10 +160,7 @@ def findDevicesOnPort(serPort, deviceObj_list, connectedDevices):
                 print('Connected to', currDevice.name, 'on',
                       currDevice.ser_port.port, ' (not MUXed)')
                 connectedDevices.append(currDevice)
-
-                # remove current device without messing up iteration
-                deviceObj_list[:] = [dev for dev in deviceObj_list if not
-                                     dev == currDevice]
+                deviceObj_list.remove(currDevice)
                 foundDevice = True
 
     return foundDevice
