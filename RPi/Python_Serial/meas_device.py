@@ -142,7 +142,6 @@ class meas_device:
 
         # remove addressing and termination from data
         data = raw_data[self.num_start_chars:]
-        print(data)
 
         # cut off termination
         if self.term_char:
