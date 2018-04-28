@@ -76,7 +76,7 @@ def writeToCSV(measurements, csvObjs, settings):
     writer = csvObjs.writer
 
     writer.writerow(dict(zip(settings['fieldnames'],
-                             [time_data, measurements])))
+                             [time_data, float(measurements)])))
 
 
 ########################################################################
