@@ -267,7 +267,7 @@ class meas_device:
 
         # self.inv_pin is low when there is no device on the current
         # MUX_address
-        if self.is_muxed and isIDN:
+        if self.is_muxed:
             self.setMUXAddressPins()
             if not GPIO.input(self.inv_pin):
                 return None
