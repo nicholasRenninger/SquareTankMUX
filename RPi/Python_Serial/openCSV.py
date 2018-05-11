@@ -50,7 +50,7 @@ def openSaveFile(settings):
 
     except Exception as error:
 
-        print("error opening serial port: ", str(error))
+        print("error opening csv log file %s: " % filename, str(error))
         exit()
 
     fieldnames = settings['fieldnames']

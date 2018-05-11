@@ -8,7 +8,6 @@ from meas_device import meas_device
 
 import yaml
 import RPi.GPIO as GPIO
-import difflib
 
 
 def setupDevices(deviceSettingsFile):

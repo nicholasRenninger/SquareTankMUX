@@ -9,8 +9,8 @@ Auto-detects and configures all settings associated with each device in the
 settings file, returns a list of the configured device objects, and allows for
 easy, configurable measurement of each device.
 
-Requires Python 3.6 to work properly, as well as the pyyaml, pySerial, and
-openCSV.
+Requires Python 3.6 to work properly, as well as the pyyaml, pySerial, csv,
+datetime, and logging modules.
 """
 from __future__ import print_function
 
