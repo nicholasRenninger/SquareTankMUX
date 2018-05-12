@@ -1,5 +1,5 @@
-# SquareTankMUX -- Python Serial Logging Application
-This repo represents a vairety of experimentation with Ubuntu/Windows/Raspbian versions of python/C serial communication applications and Rapberry Pi serial MUXing. 
+# SquareTankMUX - Python Serial Logging Application
+This repo represents a vairety of experimentation with Ubuntu/Windows/Raspbian versions of python/C serial communication applications and Rapberry Pi serial MUXing for the purposes of automatic measurement of sensors attached to a clean-room vacuum chamber. 
 
 The final application will identify all defined devices attached to any serial ports of a raspberry pi, including those connected to a multiplexed serial connection, and then allow for continuous reading of these devices over serial. All measurements taken will be recorded after every poll to a log file.
 
