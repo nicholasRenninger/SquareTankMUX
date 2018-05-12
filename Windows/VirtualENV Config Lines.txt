@@ -1,5 +1,0 @@
-3.6:
-virtualenv -p C:\Users\nrenh_000\AppData\Local\Programs\Python\Python36-32\python.exe SQENV
-
-2.7:
-virtualenv -p C:\Python27\python.exe, --python=C:\Python27\python.exe SQENV
